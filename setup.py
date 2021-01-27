@@ -20,7 +20,8 @@ setup(
         "minecraft_learns"
     ],
     install_requires=[
-        "pandas"
+        "pandas",
+        "numpy",
     ],
     zip_safe=False
 )

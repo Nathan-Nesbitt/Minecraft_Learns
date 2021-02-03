@@ -1,7 +1,5 @@
 # GITIGNORE
 
-# VSCODE
-
 # vscode
 .vscode/*
 !.vscode/tasks.json
@@ -20,6 +18,11 @@ venv/
 
 # TEST DATA DIRECTORY
 data/
+
+# MAC Storage Files
+*.DS_Store
+.AppleDouble
+.LSOverride
 
 # PYTHON
 

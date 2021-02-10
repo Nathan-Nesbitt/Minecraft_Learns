@@ -27,7 +27,7 @@ class Data:
         # Tries to open the file
         if not os.path.exists(self.location):
             raise FileNotFoundError("Data file doesn't exist")
-        self.file = pd.read_csv(self.location, sep=",", header=0)
+        self.df = pd.read_csv(self.location, sep=",", header=0)
 
     def delete_file(self):
         """ Deletes the file """
@@ -48,8 +48,8 @@ class Data:
 
     def print_data(self):
         """ Prints the head of the data (default 5). """
-        self.file.head()
+        self.df.head()
 
     def print_types(self):
         """ Prints the types of the dataframe stored. """
-        self.file.dtypes
+        self.df.dtypes

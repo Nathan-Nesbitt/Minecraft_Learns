@@ -6,25 +6,35 @@
 """
 
 from generic.classification_model import ClassificationModel
+from sklearn.neighbors import KNeighborsClassifier
 
 
 class KNN(ClassificationModel):
     """
     Model class for KNN Classification
     """
-    def __init__(self, goal, k, pca):
-        super.__init__(self, goal, pca)
-        self.k = k
+    def __init__(self, k, pca):
+        super.__init__(self, pca)
+        self.internal_model = KNeighborsClassifier(
+            n_neighbors=k, weights="distance"
+            )
 
-    def process_data(self, data):
-        
-        pass
+    def process_data(self, X, y):
+        """
+        Process the data
+        ---
+        @param X: a dataframe with n predictor observations
+        @param y: a series with n response observations
+        """
+        self.X = super()._standardize(X)
+        self.y = super()._standardize(y)
 
     def train(self):
         """
         Train the Model
         """
-        pass
+        self.internal_model.fit(self.X, self.y)
+        self._evaluate(self.X, self.y)
 
     def predict(self, X):
         """
@@ -32,7 +42,19 @@ class KNN(ClassificationModel):
         ---
         @param X: a 2D data matrix of n observations and m predictors
         """
-        pass
+        X = super()._standardize(X)
+        predicted_y = self.internal_model.predict(X)
+        self._evaluate(X, predicted_y)
+        return predicted_y
     
     def evaluate(self):
-        pass
+        """
+        evaluate the preformance of the model using MSE
+        """
+        return self.score
+    
+    def _evaluate(self, X, y):
+        """
+        Score the model using the default values
+        """
+        self.score = self.internal_model.score(X, y)

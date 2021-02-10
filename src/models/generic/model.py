@@ -14,12 +14,15 @@ class Model:
     ---
     TODO: convert to Abstract Base Class with abc
     """
-    def __init__(self, goal, pca=False):
-        self.goal = goal
+    def __init__(self, pca=False):
         self.internal_model = None
         self.pca = True
+        self.score = 0
 
     def process_data(self, data):
+        """
+        Process the data
+        """
         pass
 
     def train(self):
@@ -36,7 +39,7 @@ class Model:
         """
         pass
     
-    def evaluate(self):
+    def evaluate(self, y):
         pass
 
     def _pca(self, data, n_components=None):
@@ -72,6 +75,3 @@ class Model:
         outputs a new dataframe with standardized values
         """
         return (data - data.min())/data.std()
-
-    def _split_xy(self, data):
-        pass

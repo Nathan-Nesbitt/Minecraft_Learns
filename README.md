@@ -5,5 +5,5 @@ It is used to act as a sandbox for students to explore AI within Minecraft Educa
 ## Installation
 The easiest way to install the `minecraft_learns` library, install it via PIP:
 ```shell
-pip install -U scikit-learn
+pip install minecraft-learns
 ```

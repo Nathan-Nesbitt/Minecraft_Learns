@@ -14,6 +14,6 @@ class RegressionModel(Model):
     Generic Abstract Regression Model Class all classification models to
     inherit from
     """
-    def __init__(self, goal, pca=False):
-        super.__init__(self, goal, pca)
+    def __init__(self, pca=False):
+        super.__init__(pca)
 

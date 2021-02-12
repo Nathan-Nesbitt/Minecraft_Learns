@@ -12,8 +12,8 @@ class LDA(ClassificationModel):
     """
     Model class for LDA Classification
     """
-    def __init__(self, goal, pca):
-        super.__init__(self, goal, pca)
+    def __init__(self, pca):
+        super.__init__(pca)
 
     def process_data(self, data):
         pass

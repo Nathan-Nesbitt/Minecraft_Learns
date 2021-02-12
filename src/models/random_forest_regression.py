@@ -13,8 +13,8 @@ class RandomForestRegressor(RegressionModel):
     """
     Model class for Random Forest Regression
     """
-    def __init__(self, goal, pca=False):
-        super.__init__(self, goal, pca)
+    def __init__(self, pca=False):
+        super.__init__(pca)
 
     def process_data(self, data):
         pass

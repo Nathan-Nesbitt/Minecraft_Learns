@@ -12,8 +12,8 @@ class KMeans(ClassificationModel):
     """
     Model class for KMeans Classification
     """
-    def __init__(self, goal, k, pca=False):
-        super.__init__(self, goal, pca)
+    def __init__(self, k, pca=False):
+        super.__init__(pca)
         self.k = k
 
     def process_data(self, data):

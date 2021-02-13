@@ -14,7 +14,7 @@ class KNN(ClassificationModel):
     Model class for KNN Classification
     """
     def __init__(self, k, pca):
-        super.__init__(self, pca)
+        super.__init__(pca)
         self.internal_model = KNeighborsClassifier(
             n_neighbors=k, weights="distance"
             )

@@ -13,8 +13,8 @@ class LinearRegression(RegressionModel):
     """
     Model class for Linear Regression
     """
-    def __init__(self, goal, pca=True, interactions=False):
-        super.__init__(self, goal, pca)
+    def __init__(self, pca=True, interactions=False):
+        super.__init__(pca)
         self.interactions = interactions
 
     def process_data(self, data):

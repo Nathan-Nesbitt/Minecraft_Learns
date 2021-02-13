@@ -10,16 +10,20 @@ from .generic.regression_model import RegressionModel
 from sklearn.linear_model import LinearRegression as LinearRegressionModel
 from sklearn.preprocessing import OneHotEncoder
 
+from pandas import concat
+
 
 class LinearRegression(RegressionModel):
     """
     Model class for Linear Regression
     """
-    def __init__(self, pca=True, one_hot_encode=False):
+    def __init__(self, pca=True, one_hot_encode=False, interactions=False):
         """
-        @param interactions: False OR a list of column names to interact
+        @param one_hot_encode: False OR a list of column names to encode
+        @param interactions: False OR a list of column names to interaction
         """
         super.__init__(pca)
+        self.interactions = interactions
         self.one_hot_encode = one_hot_encode
         self.internal_model = LinearRegressionModel()
 
@@ -58,6 +62,19 @@ class LinearRegression(RegressionModel):
         """
         return self.score
 
+    def _interact(self, X):
+        """
+        add interactions to X for the columns in self.columns
+        ---
+        @param X: a 2D data matrix of n observations and m predictors
+        """
+        for column_1 in self.interactions:
+            for column_2 in self.interactions:
+                if column_1 != column_2:
+                    column_name = "" + column_1 + "*" + column_2
+                    X[column_name] = X[column_1] * X[column_2]
+        return X
+
     def _one_hot_encode(self, X):
         """
         one hot encode the data X
@@ -65,4 +82,7 @@ class LinearRegression(RegressionModel):
         @param X: a 2D data matrix of n observations and m predictors
         """
         enc = OneHotEncoder(sparse=False)
-        return enc.fit_transform(X)
+        class_columns = X[self.one_hot_encode]
+        class_columns = enc.fit_transform(class_columns)
+        X = X.drop(self.one_hot_encode)
+        return concat([X, class_columns], axis=1)

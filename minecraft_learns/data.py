@@ -44,7 +44,7 @@ class Data:
 
         @returns Pandas Dataframe object
         """
-        return self.file
+        return self.df
 
     def print_data(self):
         """ Prints the head of the data (default 5). """

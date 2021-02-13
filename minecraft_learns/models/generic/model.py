@@ -6,11 +6,12 @@
 """
 
 from sklearn.decomposition import PCA
+from numpy import log
 
 
 class Model:
     """
-    Generic Abstract Model Class all models inherit from
+    Generic Abstract Model Class all models inherit fromx
     ---
     TODO: convert to Abstract Base Class with abc
     """
@@ -43,7 +44,7 @@ class Model:
         pass
     
     def evaluate(self, y):
-        pass
+        return self.score
 
     def _pca(self, data, n_components=None):
         """
@@ -78,3 +79,13 @@ class Model:
         outputs a new dataframe with standardized values
         """
         return (data - data.min())/data.std()
+
+    def _log_transform(self, data):
+        """
+        normalize and log transform teh dataframe
+        ---
+        @param data: a dataframe
+        ---
+        outputs a new dataframe with log transformed values
+        """
+        return log(self._normalize(data))

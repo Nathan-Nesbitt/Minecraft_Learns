@@ -6,8 +6,7 @@
 """
 
 
-import pandas as pd
-import numpy as np
+from pandas import read_csv
 
 import os
 
@@ -27,7 +26,7 @@ class Data:
         # Tries to open the file
         if not os.path.exists(self.location):
             raise FileNotFoundError("Data file doesn't exist")
-        self.df = pd.read_csv(self.location, sep=",", header=0)
+        self.df = read_csv(self.location, sep=",", header=0)
 
     def delete_file(self):
         """ Deletes the file """

@@ -1,5 +1,5 @@
 """
-Defines a classification model to be trained
+Defines a regression model to be trained
     
 Written By: Kathryn Lecha
 Date: 2021-01-26

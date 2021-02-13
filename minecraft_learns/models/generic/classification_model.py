@@ -2,11 +2,14 @@
 Defines a classification model to be trained
     
 Written By: Kathryn Lecha
-Date: 2021-01-26
+Edit-Date: 2021-02-13
 """
 
 
-from model import Model
+from .model import Model
+from sklearn.metrics import accuracy_score, average_precision_score
+from sklearn.metrics import precision_recall_curve, plot_precision_recall_curve
+from matplotlib import pyplot
 
 
 class ClassificationModel(Model):
@@ -17,3 +20,44 @@ class ClassificationModel(Model):
     def __init__(self, pca=False):
         super().__init__(pca)
 
+    def misclassification_rate(self, test_X, test_y):
+        """
+        get the misclassification rate of the model
+        ---
+        @param test_X: dataframe of n test predictor observations
+        @param test_y: dataframe of n test response observations
+        """
+        return 1 - self.accuracy(test_X, test_y)
+
+    def accuracy(self, test_X, test_y):
+        """
+        Return the accuracy of the model
+        ---
+        @param test_X: dataframe of n test predictor observations
+        @param test_y: dataframe of n test response observations
+        """
+        predicted_y = self.internal_model.predict(test_X)
+        return accuracy_score(test_y, predicted_y, normalize=True)
+
+    def precision(self, test_X, test_y):
+        """
+        Return the accuracy of the model
+        ---
+        @param test_X: dataframe of n test predictor observations
+        @param test_y: dataframe of n test response observations
+        """
+        predicted_y = self.internal_model.predict(test_X)
+        return average_precision_score(test_y, predicted_y)
+
+    def plot_precision_recall(self, test_X, test_y):
+        """
+        plot the precesion recall curve
+        ---
+        @param test_X: dataframe of n test predictor observations
+        @param test_y: dataframe of n test response observations
+        """
+        average_precision = self.precision(test_X, test_y)
+        plot = plot_precision_recall_curve(self.internal_model, test_X, test_y)
+        plot.ax_.set_title('2-class Precision-Recall curve: '
+                   'AP={0:0.2f}'.format(average_precision)
+                   )

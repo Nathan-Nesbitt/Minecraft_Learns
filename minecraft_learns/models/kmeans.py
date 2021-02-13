@@ -5,7 +5,7 @@
     Date: 2021-01-26
 """
 
-from generic.classification_model import ClassificationModel
+from .generic.classification_model import ClassificationModel
 from sklearn.cluster import KMeans as KMeansModel
 
 class KMeans(ClassificationModel):
@@ -27,8 +27,12 @@ class KMeans(ClassificationModel):
     def train(self):
         """
         Train the Model
+        ---
+        sets the internal model to the trained model
+        sets the evalutation to the fit
         """
-        pass
+        self.internal_model = self.internal_model.fit(self.X, self.y)
+        self._evaluate(self.X, self.y)
 
     def predict(self, X):
         """
@@ -36,13 +40,19 @@ class KMeans(ClassificationModel):
         ---
         @param X: a 2D data matrix of n observations and m predictors
         """
-        pass
+        X = super()._standardize(X)
+        predicted_y = self.internal_model.predict(X)
+        self._evaluate(X, predicted_y)
+        return predicted_y
     
     def evaluate(self):
-        pass
-
-    def get_centroids(self):
         """
-        Return the centroids of the model
+        return preformance of model
         """
-        return self.internal_model.cluster_centers_
+        return self.score
+    
+    def _evaluate(self, X, y):
+        """
+        Score the model using the default values
+        """
+        self.score = self.internal_model.score(X, y)

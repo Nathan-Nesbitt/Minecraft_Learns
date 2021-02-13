@@ -8,20 +8,24 @@
 
 from .generic.regression_model import RegressionModel
 from sklearn.linear_model import LinearRegression as LinearRegressionModel
+from sklearn.preprocessing import OneHotEncoder
 
 
 class LinearRegression(RegressionModel):
     """
     Model class for Linear Regression
     """
-    def __init__(self, pca=True):
+    def __init__(self, pca=True, one_hot_encode=False):
         """
         @param interactions: False OR a list of column names to interact
         """
         super.__init__(pca)
+        self.one_hot_encode = one_hot_encode
         self.internal_model = LinearRegressionModel()
 
     def process_data(self, X, y):
+        if self.one_hot_encode:
+            X = self._one_hot_encode(X)
         self.X = super().process_data(X)
         self.y = super().process_data(y)
 
@@ -40,7 +44,10 @@ class LinearRegression(RegressionModel):
         ---
         @param X: a 2D data matrix of n observations and m predictors
         """
+        if self.one_hot_encode:
+            X = self._one_hot_encode(X)
         X = super().process_data(X)
+
         predicted_y = self.internal_model.predict(X)
         super()._evaluate(X, predicted_y)
         return predicted_y
@@ -50,3 +57,12 @@ class LinearRegression(RegressionModel):
         evaluate the preformance of the model using MSE
         """
         return self.score
+
+    def _one_hot_encode(self, X):
+        """
+        one hot encode the data X
+        ---
+        @param X: a 2D data matrix of n observations and m predictors
+        """
+        enc = OneHotEncoder(sparse=False)
+        return enc.fit_transform(X)

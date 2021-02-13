@@ -7,6 +7,7 @@
 
 from sklearn.decomposition import PCA
 from numpy import log
+from sklearn.model_selection import cross_val_score
 
 
 class Model:
@@ -89,3 +90,9 @@ class Model:
         outputs a new dataframe with log transformed values
         """
         return log(self._normalize(data))
+
+    def _evaluate(self, X, y):
+        """
+        Score the model using the default values
+        """
+        self.score = cross_val_score(self.internal_model, X, y, cv=5)

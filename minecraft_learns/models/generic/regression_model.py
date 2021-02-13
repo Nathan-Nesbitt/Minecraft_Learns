@@ -6,7 +6,7 @@ Date: 2021-01-26
 """
 
 
-from model import Model
+from .model import Model
 from numpy import square, subtract
 
 
@@ -17,11 +17,3 @@ class RegressionModel(Model):
     """
     def __init__(self, pca=False):
         super.__init__(pca)
-
-    def mse(self, X, y):
-        """
-        return the mse of the model
-        """
-        predicted_y = self.predict(X)
-        return square(subtract(y,predicted_y)).mean()
-

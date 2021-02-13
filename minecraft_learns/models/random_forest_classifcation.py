@@ -5,7 +5,7 @@
     Date: 2021-01-26
 """
 
-from generic.classification_model import ClassificationModel
+from .generic.classification_model import ClassificationModel
 
 
 class RandomForestClassifier(ClassificationModel):

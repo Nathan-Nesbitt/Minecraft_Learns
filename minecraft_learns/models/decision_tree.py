@@ -35,7 +35,7 @@ class DecisionTree(ClassificationModel):
         @param X: a 2D data matrix of n observations and m predictors
         """
         self.internal_model = self.internal_model.fit(self.X, self.y)
-        self._evaluate(self.X, self.y)
+        super()._evaluate(self.X, self.y)
 
     def predict(self, X):
         """
@@ -45,7 +45,7 @@ class DecisionTree(ClassificationModel):
         """
         X = super().process_data(X)
         predicted_y = self.internal_model.predict(X)
-        self._evaluate(X, predicted_y)
+        super()._evaluate(X, predicted_y)
         return predicted_y
     
     def evaluate(self):
@@ -53,12 +53,6 @@ class DecisionTree(ClassificationModel):
         evaluate the preformance of the model using MSE
         """
         return self.score
-    
-    def _evaluate(self, X, y):
-        """
-        Score the model using the default values
-        """
-        self.score = self.internal_model.score(X, y)
 
     def feature_importance(self):
         return self.internal_model.feature_importances_

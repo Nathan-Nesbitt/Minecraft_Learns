@@ -5,7 +5,7 @@
     Date: 2021-01-26
 """
 
-from .generic.classification_model import ClassificationModel
+from generic.classification_model import ClassificationModel
 from sklearn.cluster import KMeans as KMeansModel
 
 class KMeans(ClassificationModel):
@@ -13,7 +13,7 @@ class KMeans(ClassificationModel):
     Model class for KMeans Classification
     """
     def __init__(self, k, pca=True):
-        super.__init__(pca)
+        super().__init__(pca)
         self.k = k
         self.internal_model = KMeansModel(n_clusters=k)
 
@@ -35,7 +35,7 @@ class KMeans(ClassificationModel):
         sets the evalutation to the fit
         """
         self.internal_model = self.internal_model.fit(self.X, self.y)
-        self._evaluate(self.X, self.y)
+        super()._evaluate(self.X, self.y)
 
     def predict(self, X):
         """
@@ -45,7 +45,7 @@ class KMeans(ClassificationModel):
         """
         X = super().process_data(X)
         predicted_y = self.internal_model.predict(X)
-        self._evaluate(X, predicted_y)
+        super()._evaluate(X, predicted_y)
         return predicted_y
     
     def evaluate(self):
@@ -53,9 +53,3 @@ class KMeans(ClassificationModel):
         return preformance of model
         """
         return self.score
-    
-    def _evaluate(self, X, y):
-        """
-        Score the model using the default values
-        """
-        self.score = self.internal_model.score(X, y)

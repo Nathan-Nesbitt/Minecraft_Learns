@@ -17,3 +17,7 @@ class RegressionModel(Model):
     """
     def __init__(self, pca=False):
         super.__init__(pca)
+    
+    def r_square(self):
+        """Return r square score"""
+        return self.internal_model.score()

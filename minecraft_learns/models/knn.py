@@ -33,7 +33,7 @@ class KNN(ClassificationModel):
         """
         Train the Model
         """
-        self.internal_model.fit(self.X, self.y)
+        self.internal_model = self.internal_model.fit(self.X, self.y)
         self._evaluate(self.X, self.y)
 
     def predict(self, X):

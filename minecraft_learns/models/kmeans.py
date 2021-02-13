@@ -43,7 +43,7 @@ class KMeans(ClassificationModel):
         ---
         @param X: a 2D data matrix of n observations and m predictors
         """
-        X = super()._standardize(X)
+        X = super().process_data(X)
         predicted_y = self.internal_model.predict(X)
         self._evaluate(X, predicted_y)
         return predicted_y

@@ -6,7 +6,7 @@
 """
 
 
-from generic.regression_model import RegressionModel
+from .generic.regression_model import RegressionModel
 
 
 class RandomForestRegressor(RegressionModel):

@@ -19,7 +19,7 @@ class Model:
     def __init__(self, pca=False):
         self.internal_model = None
         self.pca = True
-        self.score = 0
+        self.score = [0,0,0,0,0]
 
     def process_data(self, data):
         """
@@ -45,7 +45,7 @@ class Model:
         pass
     
     def evaluate(self, y):
-        return self.score
+        return self.score.mean()
 
     def _pca(self, data, n_components=None):
         """
@@ -57,9 +57,8 @@ class Model:
             pca: PCA object for transformations
             pca_data: transformed data
         """
-        pca = PCA(n_components=n_components)
-        pca_data = pca.fit_transform(data)
-        return pca, pca_data
+        pca_data = PCA(n_components=n_components).fit_transform(data)
+        return pca_data
 
     def _normalize(self, data):
         """

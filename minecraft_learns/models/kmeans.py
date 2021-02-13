@@ -5,14 +5,14 @@
     Date: 2021-01-26
 """
 
-from generic.classification_model import ClassificationModel
+from .generic.classification_model import ClassificationModel
 from sklearn.cluster import KMeans as KMeansModel
 
 class KMeans(ClassificationModel):
     """
     Model class for KMeans Classification
     """
-    def __init__(self, k, pca=True):
+    def __init__(self, k, pca=False):
         super().__init__(pca)
         self.k = k
         self.internal_model = KMeansModel(n_clusters=k)

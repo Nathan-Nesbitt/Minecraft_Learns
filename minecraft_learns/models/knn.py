@@ -13,8 +13,8 @@ class KNN(ClassificationModel):
     """
     Model class for KNN Classification
     """
-    def __init__(self, k, pca):
-        super().__init__(pca)
+    def __init__(self, k):
+        super().__init__()
         self.internal_model = KNeighborsClassifier(
             n_neighbors=k, weights="distance"
             )
@@ -47,15 +47,3 @@ class KNN(ClassificationModel):
         predicted_y = self.internal_model.predict(X)
         self._evaluate(X, predicted_y)
         return predicted_y
-    
-    def evaluate(self):
-        """
-        evaluate the preformance of the model using MSE
-        """
-        return self.score
-    
-    def _evaluate(self, X, y):
-        """
-        Score the model using the default values
-        """
-        self.score = self.internal_model.score(X, y)

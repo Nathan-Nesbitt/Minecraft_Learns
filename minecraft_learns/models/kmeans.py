@@ -6,19 +6,23 @@
 """
 
 from generic.classification_model import ClassificationModel
-
+from sklearn.cluster import KMeans as KMeansModel
 
 class KMeans(ClassificationModel):
     """
     Model class for KMeans Classification
     """
-    def __init__(self, k, pca=False):
+    def __init__(self, k, pca=True):
         super.__init__(pca)
         self.k = k
+        self.internal_model = KMeansModel(n_clusters=k)
 
-    def process_data(self, data):
-        
-        pass
+    def process_data(self, X, y):
+        """
+        KMeans needs 
+        """
+        self.X = super().process_data(X)
+        self.y = super().process_data(y)
 
     def train(self):
         """
@@ -36,3 +40,9 @@ class KMeans(ClassificationModel):
     
     def evaluate(self):
         pass
+
+    def get_centroids(self):
+        """
+        Return the centroids of the model
+        """
+        return self.internal_model.cluster_centers_

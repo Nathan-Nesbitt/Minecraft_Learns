@@ -26,8 +26,8 @@ class KNN(ClassificationModel):
         @param X: a dataframe with n predictor observations
         @param y: a series with n response observations
         """
-        self.X = super()._standardize(X)
-        self.y = super()._standardize(y)
+        self.X = super().process_data(X)
+        self.y = super().process_data(y)
 
     def train(self):
         """

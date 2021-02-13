@@ -23,7 +23,10 @@ class Model:
         """
         Process the data
         """
-        pass
+        if self.pca:
+            return self._pca(self._standardize(data))
+        else:
+            return self._standardize(data)
 
     def train(self):
         """

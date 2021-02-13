@@ -7,6 +7,7 @@
 
 from .generic.classification_model import ClassificationModel
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import plot_tree
 
 
 class DecisionTree(ClassificationModel):
@@ -58,3 +59,9 @@ class DecisionTree(ClassificationModel):
         Score the model using the default values
         """
         self.score = self.internal_model.score(X, y)
+
+    def feature_importance(self):
+        return self.internal_model.feature_importances_
+
+    def plot_decision_tree(self):
+        plot_tree(self.internal_model, feature_names=self.X.columns)

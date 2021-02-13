@@ -31,7 +31,8 @@ class KNN(ClassificationModel):
 
     def train(self):
         """
-        Train the Model
+        Train the Model and set the model to trained model
+        evaluate based on training
         """
         self.internal_model = self.internal_model.fit(self.X, self.y)
         self._evaluate(self.X, self.y)

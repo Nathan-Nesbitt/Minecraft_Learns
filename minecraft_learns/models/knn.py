@@ -21,7 +21,7 @@ class KNN(ClassificationModel):
 
     def process_data(self, X, y):
         """
-        Process the data
+        Standardize the data and do PCA if needed
         ---
         @param X: a dataframe with n predictor observations
         @param y: a series with n response observations

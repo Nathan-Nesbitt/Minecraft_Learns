@@ -48,8 +48,10 @@ class KMeans(ClassificationModel):
         super()._evaluate(X, predicted_y)
         return predicted_y
     
-    def evaluate(self):
+    def predict_probablity(self, X):
         """
-        return preformance of model
+        Predict the probablity of label y for the input data X
+        ---
+        @param X: a 2D data matrix of n observations and m predictors
         """
-        return self.score
+        return self.internal_model.predict_proba(X)

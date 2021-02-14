@@ -47,3 +47,11 @@ class KNN(ClassificationModel):
         predicted_y = self.internal_model.predict(X)
         self._evaluate(X, predicted_y)
         return predicted_y
+
+    def predict_probablity(self, X):
+        """
+        Predict the probablity of label y for the input data X
+        ---
+        @param X: a 2D data matrix of n observations and m predictors
+        """
+        return self.internal_model.predict_proba(X)

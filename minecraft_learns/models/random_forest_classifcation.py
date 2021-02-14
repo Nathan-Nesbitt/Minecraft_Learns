@@ -54,8 +54,7 @@ class RandomForestClassifier(ClassificationModel):
         ---
         @param X: a 2D data matrix of n observations and m predictors
         """
-        predicted_y = self.internal_model.predict_proba(X)
-        return predicted_y
+        return self.internal_model.predict_proba(X)
 
     def feature_importance(self):
         return self.internal_model.feature_importances_

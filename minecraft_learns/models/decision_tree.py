@@ -47,12 +47,14 @@ class DecisionTree(ClassificationModel):
         predicted_y = self.internal_model.predict(X)
         super()._evaluate(X, predicted_y)
         return predicted_y
-    
-    def evaluate(self):
+
+    def predict_probablity(self, X):
         """
-        evaluate the preformance of the model using MSE
+        Predict the probablity of label y for the input data X
+        ---
+        @param X: a 2D data matrix of n observations and m predictors
         """
-        return self.score
+        return self.internal_model.predict_proba(X)
 
     def feature_importance(self):
         return self.internal_model.feature_importances_

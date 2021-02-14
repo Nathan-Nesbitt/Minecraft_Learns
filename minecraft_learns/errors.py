@@ -46,35 +46,3 @@ class ModelNotFound(TypeNotFound):
             entered_type,
             "The entered Model was not found"
         )
-
-
-class HasNoFunction(Exception):
-    """
-        Exception which indicates that there is no specified event handler
-        for the user's Event. This means that the user has forgotten to
-        indicate what they would like done when some event happens.
-    """
-
-    def __init__(
-        self,
-        message="No Function has been chosen to be run when the event occurs."
-    ):
-        self.message = message
-        super().__init__(self.message)
-
-
-class MessageAlreadyCalled(Exception):
-    """
-        Exception for when you have tried to append the current message
-        call to the user twice, this simply warns the user that they shouldn't
-        be repeating the same function multiple times as it is inefficient and
-        the function should simply be changed.
-    """
-
-    def __init__(
-        self,
-        message="You have tried to add 2 instances of the same Event or "
-        + "Command to the queue. Make sure you aren't duplicating code"
-    ):
-        self.message = message
-        super().__init__(self.message)

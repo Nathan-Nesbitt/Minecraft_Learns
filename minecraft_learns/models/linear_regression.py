@@ -74,6 +74,7 @@ class LinearRegression(RegressionModel):
         ---
         @param X: a 2D data matrix of n observations and m predictors
         """
+        # for each pair of interaction columns, create a new product column
         for column_1 in self.interactions:
             for column_2 in self.interactions:
                 if column_1 != column_2:
@@ -87,8 +88,27 @@ class LinearRegression(RegressionModel):
         ---
         @param X: a 2D data matrix of n observations and m predictors
         """
-        enc = OneHotEncoder(sparse=False)
-        class_columns = X[self.one_hot_encode]
-        class_columns = enc.fit_transform(class_columns)
-        X = X.drop(self.one_hot_encode)
-        return concat([X, class_columns], axis=1)
+        # encode the columns
+        encoded = X[self.one_hot_encode]
+        encoded = OneHotEncoder(sparse=False).fit_transform(encoded)
+        # remove the duplicates and concatenate
+        return concat([X.drop(self.one_hot_encode), encoded], axis=1)
+    
+    def get_intercept(self):
+        return self.internal_model.intercept_
+    
+    def get_coefficents(self):
+        return self.internal_model.coef_
+
+    def equation(self):
+        """
+        returns a string of the equation used
+        """
+        equation_string = "" + self.internal_model.intercept_
+
+        # add the coefficents to the string 
+        coefficents = self.internal_model.coef_
+        for i in range(0,len(self.X.columns)):
+            equation_string += " + " + coefficents[i] + "*" + self.X.columns[i]
+
+        return equation_string

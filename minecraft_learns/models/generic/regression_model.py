@@ -1,12 +1,13 @@
 """
-Defines a classification model to be trained
+Defines a regression model to be trained
     
 Written By: Kathryn Lecha
 Date: 2021-01-26
 """
 
 
-from model import Model
+from .model import Model
+from numpy import square, subtract
 
 
 class RegressionModel(Model):
@@ -16,4 +17,7 @@ class RegressionModel(Model):
     """
     def __init__(self, pca=False):
         super.__init__(pca)
-
+    
+    def r_square(self):
+        """Return r square score"""
+        return self.internal_model.score()

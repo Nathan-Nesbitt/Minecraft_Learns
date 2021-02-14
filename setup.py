@@ -26,6 +26,8 @@ setup(
     install_requires=[
         "pandas",
         "numpy",
+        "sklearn",
+        "matplotlib"
     ],
     zip_safe=False,
     long_description=long_description,

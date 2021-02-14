@@ -1,5 +1,10 @@
 """
-    Defines Random Forest Model used for Regression 
+    Defines Linear Regression
+    Options for Linear Regression:
+        - linear regression: pca = False
+        - PCA LR: pca = True (default)
+        - one hot encoding: one_hot_encode=[list of column names]
+        - interations: interactions=[list of column names]
     
     Written By: Kathryn Lecha
     Date: 2021-01-26
@@ -30,8 +35,8 @@ class LinearRegression(RegressionModel):
     def process_data(self, X, y):
         if self.one_hot_encode:
             X = self._one_hot_encode(X)
-        self.X = super().process_data(X)
-        self.y = super().process_data(y)
+        super().set_X(super().process_data(X))
+        super().set_X(super().process_data(y))
 
     def train(self):
         """

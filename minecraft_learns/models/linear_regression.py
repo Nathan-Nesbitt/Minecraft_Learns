@@ -16,6 +16,7 @@ from sklearn.linear_model import LinearRegression as LinearRegressionModel
 from sklearn.preprocessing import OneHotEncoder
 
 from pandas import concat
+from numpy import square, subtract
 
 
 class LinearRegression(RegressionModel):
@@ -61,11 +62,11 @@ class LinearRegression(RegressionModel):
         super()._evaluate(X, predicted_y)
         return predicted_y
     
-    def evaluate(self):
+    def mse(self):
         """
         evaluate the preformance of the model using MSE
         """
-        return self.score
+        return square(subtract(self.y.values, self.predict(self.X))).mean()
 
     def _interact(self, X):
         """

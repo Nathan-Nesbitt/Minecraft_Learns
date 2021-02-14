@@ -24,8 +24,8 @@ class KMeans(ClassificationModel):
         @param X: a dataframe with n predictor observations
         @param y: a series with n response observations
         """
-        self.X = super().process_data(X)
-        self.y = super().process_data(y)
+        super().set_X(super().process_data(X))
+        super().set_y(super().process_data(y))
 
     def train(self):
         """

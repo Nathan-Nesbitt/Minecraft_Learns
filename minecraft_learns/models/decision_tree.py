@@ -25,8 +25,8 @@ class DecisionTree(ClassificationModel):
         @param X: a dataframe with n predictor observations
         @param y: a series with n response observations
         """
-        self.X = X
-        self.y = y
+        super().set_X(X)
+        super().set_y(y)
 
     def train(self):
         """

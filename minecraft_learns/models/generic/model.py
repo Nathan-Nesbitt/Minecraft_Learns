@@ -52,13 +52,8 @@ class Model:
         Transform the data using pca
         ---
         @param data: a dataframe
-        ---
-        Outputs:
-            pca: PCA object for transformations
-            pca_data: transformed data
         """
-        pca_data = PCA(n_components=n_components).fit_transform(data)
-        return pca_data
+        return PCA(n_components=n_components).fit_transform(data)
 
     def _normalize(self, data):
         """
@@ -95,3 +90,19 @@ class Model:
         Score the model using the default values
         """
         self.score = cross_val_score(self.internal_model, X, y, cv=5)
+
+    def set_X(self, X):
+        """
+        Set X to an input value
+        ---
+        @param X: a dataframe with n predictor observations
+        """
+        self.X = X
+    
+    def set_y(self, y):
+        """
+        Set y to an input value
+        ---
+        @param y: a series with n response observations
+        """
+        self.y = y

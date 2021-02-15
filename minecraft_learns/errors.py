@@ -16,7 +16,7 @@ class TypeNotFound(Exception):
     """
     def __init__(
         self, entered_type,
-        message="The type of Event or Command was not valid Minecraft Command"
+        message="The type of Model or Lesson was not Found"
     ):
         self.entered_type = entered_type
         self.message = message
@@ -46,3 +46,42 @@ class ModelNotFound(TypeNotFound):
             entered_type,
             "The entered Model was not found"
         )
+
+
+class InvalidInputUse(ValueError):
+    """
+        Error class that defines all invalid inputs from the user
+    """
+    def __init__(
+        self, entered_type,
+        message="The input cannot be used here"
+    ):
+        self.entered_type = entered_type
+        self.message = message
+        super().__init__(self.message)
+
+    def __str__(self):
+        return f'{self.entered_type} -> {self.message}'
+    
+
+class InvalidModelUse(InvalidInputUse):
+    """
+        Exception which indicates that the model cannot be used there
+    """
+    def __init__(self, entered_type):
+        super().__init__(
+            entered_type,
+            "The entered Model cannot be used here"
+        )
+
+
+class InvalidDataUse(InvalidInputUse):
+    """
+        Exception which indicates that the data cannot be used there
+    """
+    def __init__(self, entered_type):
+        super().__init__(
+            entered_type,
+            "The entered data cannot be used here"
+        )
+

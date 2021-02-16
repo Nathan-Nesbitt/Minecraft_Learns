@@ -7,5 +7,4 @@
 
 # from .command import Command
 from .data import Data
-from .executor import Executor
 from .errors import *

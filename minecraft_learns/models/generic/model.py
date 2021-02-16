@@ -45,7 +45,7 @@ class Model:
         pass
     
     def evaluate(self, y):
-        return self.score.mean()
+        return self.score
 
     def _pca(self, data, n_components=None):
         """

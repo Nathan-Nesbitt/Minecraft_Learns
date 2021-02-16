@@ -28,7 +28,7 @@ class LinearRegression(RegressionModel):
         @param one_hot_encode: False OR a list of column names to encode
         @param interactions: False OR a list of column names to interaction
         """
-        super.__init__(pca)
+        super().__init__(pca)
         self.interactions = interactions
         self.one_hot_encode = one_hot_encode
         self.internal_model = LinearRegressionModel()

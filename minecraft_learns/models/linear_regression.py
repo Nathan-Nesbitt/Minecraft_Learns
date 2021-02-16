@@ -1,8 +1,8 @@
 """
     Defines Linear Regression
     Options for Linear Regression:
-        - linear regression: pca = False
-        - PCA LR: pca = True (default)
+        - linear regression: pca = False (default)
+        - PCA LR: pca = True
         - one hot encoding: one_hot_encode=[list of column names]
         - interations: interactions=[list of column names]
     
@@ -23,7 +23,7 @@ class LinearRegression(RegressionModel):
     """
     Model class for Linear Regression
     """
-    def __init__(self, pca=True, one_hot_encode=False, interactions=False):
+    def __init__(self, pca=False, one_hot_encode=False, interactions=False):
         """
         @param one_hot_encode: False OR a list of column names to encode
         @param interactions: False OR a list of column names to interaction

@@ -18,11 +18,15 @@ class PLSRegressor(RegressionModel):
     """
     Model class for PLS Regression
     """
-    def __init__(self, n_components=3):
+    def __init__(self, n_components=3, one_hot_encode=False):
         """
         Initalize PLS Regression
+        ---
+        @param n_components: number of components to keep in PCA
+        @param one_hot_encode: False OR a list of column names to encode
         """
-        super.__init__(False)
+        super().__init__(pca=False)
+        self.one_hot_encode = one_hot_encode
         self.internal_model = PLSRegression(n_components=n_components)
 
     def process_data(self, X, y):
@@ -93,3 +97,15 @@ class PLSRegressor(RegressionModel):
         @param X: a 2D data matrix of transformed data
         """
         return self.internal_model.inverse_transform(X)
+
+    def _one_hot_encode(self, X):
+        """
+        one hot encode the data X
+        ---
+        @param X: a 2D data matrix of n observations and m predictors
+        """
+        # encode the columns
+        encoded = X[self.one_hot_encode]
+        encoded = OneHotEncoder(sparse=False).fit_transform(encoded)
+        # remove the duplicates and concatenate
+        return concat([X.drop(self.one_hot_encode), encoded], axis=1)

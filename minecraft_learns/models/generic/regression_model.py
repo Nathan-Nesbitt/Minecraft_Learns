@@ -16,7 +16,7 @@ class RegressionModel(Model):
     inherit from
     """
     def __init__(self, pca=False):
-        super.__init__(pca)
+        super().__init__(pca)
     
     def r_square(self):
         """Return r square score"""

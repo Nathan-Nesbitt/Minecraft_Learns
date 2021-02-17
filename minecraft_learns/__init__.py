@@ -5,6 +5,5 @@
     Date: 2021-01-15
 """
 
-# from .command import Command
 from .data import Data
 from .errors import *

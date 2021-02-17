@@ -7,3 +7,4 @@
 
 from .data import Data
 from .errors import *
+from .models import *

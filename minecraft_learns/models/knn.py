@@ -30,14 +30,6 @@ class KNN(ClassificationModel):
         super().set_X(super().process_data(X))
         super().set_y(super().process_data(y))
 
-    def train(self):
-        """
-        Train the Model and set the model to trained model
-        evaluate based on training
-        """
-        self.internal_model = self.internal_model.fit(self.X, self.y)
-        self._evaluate(self.X, self.y)
-
     def predict(self, X):
         """
         Predict the response variable y for the input data X
@@ -45,14 +37,5 @@ class KNN(ClassificationModel):
         @param X: a 2D data matrix of n observations and m predictors
         """
         X = super().process_data(X)
-        predicted_y = self.internal_model.predict(X)
-        self._evaluate(X, predicted_y)
+        predicted_y = super().predict(X)
         return predicted_y
-
-    def predict_probablity(self, X):
-        """
-        Predict the probablity of label y for the input data X
-        ---
-        @param X: a 2D data matrix of n observations and m predictors
-        """
-        return self.internal_model.predict_proba(X)

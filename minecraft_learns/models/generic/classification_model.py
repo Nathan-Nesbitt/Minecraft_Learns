@@ -21,6 +21,14 @@ class ClassificationModel(Model):
     def __init__(self, pca=False):
         super().__init__(pca)
 
+    def predict_probablity(self, X):
+        """
+        Predict the probablity of label y for the input data X
+        ---
+        @param X: a 2D data matrix of n observations and m predictors
+        """
+        return self.internal_model.predict_proba(X)
+
     def misclassification_rate(self, test_X, test_y):
         """
         get the misclassification rate of the model

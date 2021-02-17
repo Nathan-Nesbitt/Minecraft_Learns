@@ -53,24 +53,14 @@ class PLSRegressor(RegressionModel):
             data = self._one_hot_encode(data)
         return data
 
-    def train(self):
-        """
-        Predict the response variable y for the input data X
-        ---
-        @param X: a 2D data matrix of n observations and m predictors
-        """
-        self.internal_model = self.internal_model.fit(self.X, self.y)
-        self._evaluate(self.X, self.y)
-
     def predict(self, X):
         """
         Predict the response variable y for the input data X
         ---
         @param X: a 2D data matrix of n observations and m predictors
         """
-        predicted_y = self.internal_model.predict(self._process_data(X))
-        super()._evaluate(X, predicted_y)
-        return predicted_y
+        X = self._process_data(X)
+        return super().predict(X)
 
     def get_coefficents(self):
         return self.internal_model.coef_

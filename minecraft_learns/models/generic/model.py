@@ -9,6 +9,8 @@ from sklearn.decomposition import PCA
 from numpy import log
 from sklearn.model_selection import cross_val_score
 
+from minecraft_learns import UnProcessedData
+
 
 class Model:
     """
@@ -34,8 +36,14 @@ class Model:
     def train(self):
         """
         Train the Model
+        sets the internal model to the trained model
+        sets the evalutation to the crossvalidation score of the fit
         """
-        pass
+        try:
+            self.internal_model = self.internal_model.fit(self.X, self.y)
+            self._evaluate(self.X, self.y)
+        except(AttributeError):
+            raise UnProcessedData("train")
 
     def predict(self, X):
         """
@@ -43,7 +51,9 @@ class Model:
         ---
         @param X: a 2D data matrix of n observations and m predictors
         """
-        pass
+        predicted_y = self.internal_model.predict(X)
+        self._evaluate(X, predicted_y)
+        return predicted_y
 
     def evaluate(self, y):
         return self.score.mean()

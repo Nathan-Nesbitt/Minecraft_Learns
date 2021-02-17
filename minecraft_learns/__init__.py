@@ -6,4 +6,5 @@
 """
 
 # from .command import Command
-from .Data import Data
+from .data import Data
+from .errors import *

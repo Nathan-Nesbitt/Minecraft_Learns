@@ -5,12 +5,11 @@
     Date: 2021-02-12
 """
 
-# from .command import Command
-from .decision_tree import DecisionTree
-from .kmeans import KMeans
-from .knn import KNN
-from .lda import LDA
-from .linear_regression import LinearRegression
-from .pls import PLSRegressor
-from .random_forest_classifcation import RandomForestClassifier
-from .random_forest_regression import RandomForestRegressor
+from minecraft_learns.models.decision_tree import DecisionTree
+from minecraft_learns.models.kmeans import KMeans
+from minecraft_learns.models.knn import KNN
+from minecraft_learns.models.lda import LDA
+from minecraft_learns.models.linear_regression import LinearRegression
+from minecraft_learns.models.pls import PLSRegressor
+from minecraft_learns.models.random_forest_classifcation import RandomForestClassifier
+from minecraft_learns.models.random_forest_regression import RandomForestRegressor

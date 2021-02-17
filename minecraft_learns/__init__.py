@@ -5,6 +5,6 @@
     Date: 2021-01-15
 """
 
-from .data import Data
-from .errors import *
-from .models import *
+from minecraft_learns.data import Data
+from minecraft_learns.errors import *
+from minecraft_learns.models import *

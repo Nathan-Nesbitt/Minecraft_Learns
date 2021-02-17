@@ -5,7 +5,7 @@
         - PCA LR: pca = True
         - one hot encoding: one_hot_encode=[list of column names]
         - interations: interactions=[list of column names]
-    
+
     Written By: Kathryn Lecha
     Date: 2021-01-26
 """
@@ -22,6 +22,7 @@ class LinearRegression(RegressionModel):
     """
     Model class for Linear Regression
     """
+
     def __init__(self, pca=False, one_hot_encode=False, interactions=False):
         """
         @param one_hot_encode: False OR a list of column names to encode
@@ -104,10 +105,10 @@ class LinearRegression(RegressionModel):
         encoded = DataFrame(encoded, index=X.index)
         # remove the duplicates and concatenate
         return concat([X.drop(self.one_hot_encode, axis=1), encoded], axis=1)
-    
+
     def get_intercept(self):
         return self.internal_model.intercept_
-    
+
     def get_coefficents(self):
         return self.internal_model.coef_
 
@@ -117,9 +118,9 @@ class LinearRegression(RegressionModel):
         """
         equation_string = "" + self.internal_model.intercept_
 
-        # add the coefficents to the string 
+        # add the coefficents to the string
         coefficents = self.internal_model.coef_
-        for i in range(0,len(self.X.columns)):
+        for i in range(0, len(self.X.columns)):
             equation_string += " + " + coefficents[i] + "*" + self.X.columns[i]
 
         return equation_string

@@ -1,6 +1,6 @@
 """
-    Defines KNN Model used for Classification 
-    
+    Defines KNN Model used for Classification
+
     Written By: Kathryn Lecha
     Date: 2021-01-26
 """
@@ -13,6 +13,7 @@ class KNN(ClassificationModel):
     """
     Model class for KNN Classification
     """
+
     def __init__(self, k):
         super().__init__()
         self.internal_model = KNeighborsClassifier(

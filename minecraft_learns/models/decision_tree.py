@@ -1,6 +1,6 @@
 """
-    Defines DecisionTree Model used for Classification 
-    
+    Defines DecisionTree Model used for Classification
+
     Written By: Kathryn Lecha
     Date: 2021-01-26
 """
@@ -14,6 +14,7 @@ class DecisionTree(ClassificationModel):
     """
     Model class for Decision Tree Classification
     """
+
     def __init__(self, pca=False):
         super.__init__(pca)
         self.internal_model = DecisionTreeClassifier()

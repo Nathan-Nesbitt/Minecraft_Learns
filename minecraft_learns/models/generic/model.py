@@ -1,6 +1,6 @@
 """
     Defines a model to be trained using the data and a model name.
-    
+
     Written By: Kathryn Lecha
     Date: 2021-01-26
 """
@@ -16,10 +16,11 @@ class Model:
     ---
     TODO: convert to Abstract Base Class with abc
     """
+
     def __init__(self, pca=False):
         self.internal_model = None
         self.pca = pca
-        self.score = [0,0,0,0,0]
+        self.score = [0, 0, 0, 0, 0]
 
     def process_data(self, data):
         """
@@ -43,7 +44,7 @@ class Model:
         @param X: a 2D data matrix of n observations and m predictors
         """
         pass
-    
+
     def evaluate(self, y):
         return self.score.mean()
 
@@ -64,7 +65,7 @@ class Model:
         ---
         outputs a new dataframe with normalized values
         """
-        return (data - data.min())/(data.max() - data.min())
+        return (data - data.min()) / (data.max() - data.min())
 
     def _standardize(self, data):
         """
@@ -74,7 +75,7 @@ class Model:
         ---
         outputs a new dataframe with standardized values
         """
-        return (data - data.min())/data.std()
+        return (data - data.min()) / data.std()
 
     def _log_transform(self, data):
         """
@@ -99,7 +100,7 @@ class Model:
         @param X: a dataframe with n predictor observations
         """
         self.X = X
-    
+
     def set_y(self, y):
         """
         Set y to an input value

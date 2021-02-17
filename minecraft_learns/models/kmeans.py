@@ -1,5 +1,5 @@
 """
-    Defines KNN Model used for Classification 
+    Defines KNN Model used for Classification
 
     Written By: Kathryn Lecha
     Date: 2021-01-26
@@ -8,10 +8,12 @@
 from .generic.classification_model import ClassificationModel
 from sklearn.cluster import KMeans as KMeansModel
 
+
 class KMeans(ClassificationModel):
     """
     Model class for KMeans Classification
     """
+
     def __init__(self, k, pca=False):
         super().__init__(pca)
         self.k = k
@@ -47,7 +49,7 @@ class KMeans(ClassificationModel):
         predicted_y = self.internal_model.predict(X)
         super()._evaluate(X, predicted_y)
         return predicted_y
-    
+
     def predict_probablity(self, X):
         """
         Predict the probablity of label y for the input data X

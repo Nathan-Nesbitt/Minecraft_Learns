@@ -1,6 +1,6 @@
 """
 Defines a classification model to be trained
-    
+
 Written By: Kathryn Lecha
 Edit-Date: 2021-02-13
 """
@@ -8,7 +8,7 @@ Edit-Date: 2021-02-13
 
 from .model import Model
 from sklearn.metrics import accuracy_score, average_precision_score
-from sklearn.metrics import precision_recall_curve, plot_precision_recall_curve
+from sklearn.metrics import plot_precision_recall_curve
 from matplotlib import pyplot
 
 
@@ -17,6 +17,7 @@ class ClassificationModel(Model):
     Generic Abstract Classification Model Class all classification models to
     inherit from
     """
+
     def __init__(self, pca=False):
         super().__init__(pca)
 
@@ -58,6 +59,5 @@ class ClassificationModel(Model):
         """
         average_precision = self.precision(test_X, test_y)
         plot = plot_precision_recall_curve(self.internal_model, test_X, test_y)
-        plot.ax_.set_title('2-class Precision-Recall curve: '
-                   'AP={0:0.2f}'.format(average_precision)
-                   )
+        title = "2-class Precision-Recall curve: AP={0:0.2f}"
+        plot.ax_.set_title(title.format(average_precision))

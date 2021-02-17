@@ -11,5 +11,6 @@ from .kmeans import KMeans
 from .knn import KNN
 from .lda import LDA
 from .linear_regression import LinearRegression
+from .pls import PLSRegressor
 from .random_forest_classifcation import RandomForestClassifier
 from .random_forest_regression import RandomForestRegressor

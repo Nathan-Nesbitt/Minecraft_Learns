@@ -15,7 +15,7 @@ class RandomForestRegressor(RegressionModel):
     Model class for Random Forest Regression
     """
     def __init__(self, pca=False):
-        super.__init__(pca)
+        super().__init__(pca)
         self.internal_model = RandomForest(
             bootstrap=True, oob_score=True, max_samples=0.3
         )

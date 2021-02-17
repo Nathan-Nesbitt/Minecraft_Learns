@@ -18,7 +18,7 @@ class Model:
     """
     def __init__(self, pca=False):
         self.internal_model = None
-        self.pca = True
+        self.pca = pca
         self.score = [0,0,0,0,0]
 
     def process_data(self, data):
@@ -53,6 +53,7 @@ class Model:
         ---
         @param data: a dataframe
         """
+        print(data)
         return PCA(n_components=n_components).fit_transform(data)
 
     def _normalize(self, data):

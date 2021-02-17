@@ -21,3 +21,9 @@ class RegressionModel(Model):
     def r_square(self):
         """Return r square score"""
         return self.internal_model.score()
+
+    def mse(self):
+        """
+        evaluate the preformance of the model using MSE
+        """
+        return square(subtract(self.y.values, self.predict(self.X))).mean()

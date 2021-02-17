@@ -15,8 +15,7 @@ from .generic.regression_model import RegressionModel
 from sklearn.linear_model import LinearRegression as LinearRegressionModel
 from sklearn.preprocessing import OneHotEncoder
 
-from pandas import concat
-from numpy import square, subtract
+from pandas import concat, DataFrame
 
 
 class LinearRegression(RegressionModel):
@@ -34,10 +33,29 @@ class LinearRegression(RegressionModel):
         self.internal_model = LinearRegressionModel()
 
     def process_data(self, X, y):
+        """
+        set linear regression and interactions as necessary
+        ---
+        @param X: a dataframe with n predictor observations
+        @param y: a series with n response observations
+        """
         if self.one_hot_encode:
-            X = self._one_hot_encode(X)
-        super().set_X(super().process_data(X))
-        super().set_X(super().process_data(y))
+            super().set_X(self._process_data(X))
+        else:
+            super().set_X(super().process_data(self._process_data(X)))
+        super().set_y(super().process_data(y))
+
+    def _process_data(self, data):
+        """
+        run interactions and encoding as necessary
+        ---
+        @param data: dataframe of n observervations
+        """
+        if self.one_hot_encode:
+            data = self._one_hot_encode(data)
+        if self.interactions:
+            data = self._interact(data)
+        return data
 
     def train(self):
         """
@@ -54,19 +72,11 @@ class LinearRegression(RegressionModel):
         ---
         @param X: a 2D data matrix of n observations and m predictors
         """
-        if self.one_hot_encode:
-            X = self._one_hot_encode(X)
-        X = super().process_data(X)
+        X = self._process_data(X)
 
         predicted_y = self.internal_model.predict(X)
         super()._evaluate(X, predicted_y)
         return predicted_y
-    
-    def mse(self):
-        """
-        evaluate the preformance of the model using MSE
-        """
-        return square(subtract(self.y.values, self.predict(self.X))).mean()
 
     def _interact(self, X):
         """
@@ -91,8 +101,9 @@ class LinearRegression(RegressionModel):
         # encode the columns
         encoded = X[self.one_hot_encode]
         encoded = OneHotEncoder(sparse=False).fit_transform(encoded)
+        encoded = DataFrame(encoded, index=X.index)
         # remove the duplicates and concatenate
-        return concat([X.drop(self.one_hot_encode), encoded], axis=1)
+        return concat([X.drop(self.one_hot_encode, axis=1), encoded], axis=1)
     
     def get_intercept(self):
         return self.internal_model.intercept_

@@ -1,6 +1,6 @@
 """
-    Defines Random Forest Model used for Classification 
-    
+    Defines Random Forest Model used for Classification
+
     Written By: Kathryn Lecha
     Date: 2021-01-26
 """
@@ -13,6 +13,7 @@ class RandomForestClassifier(ClassificationModel):
     """
     Model class for Random Forest Classification
     """
+
     def __init__(self, pca=False):
         super().__init__(pca)
         self.internal_model = RandomForest(

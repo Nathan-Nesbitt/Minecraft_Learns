@@ -1,6 +1,6 @@
 """
-    Defines Random Forest Model used for Regression 
-    
+    Defines Random Forest Model used for Regression
+
     Written By: Kathryn Lecha
     Date: 2021-01-26
 """
@@ -14,6 +14,7 @@ class RandomForestRegressor(RegressionModel):
     """
     Model class for Random Forest Regression
     """
+
     def __init__(self, pca=False):
         super().__init__(pca)
         self.internal_model = RandomForest(

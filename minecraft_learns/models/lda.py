@@ -1,6 +1,6 @@
 """
-    Defines LDA Model used for Classification 
-    
+    Defines LDA Model used for Classification
+
     Written By: Kathryn Lecha
     Date: 2021-01-26
 """
@@ -13,6 +13,7 @@ class LDA(ClassificationModel):
     """
     Model class for LDA Classification
     """
+
     def __init__(self, pca=True):
         super().__init__(pca)
         self.internal_model = LinearDiscriminantAnalysis()
@@ -53,13 +54,13 @@ class LDA(ClassificationModel):
         @param X: a 2D data matrix of n observations and m predictors
         """
         return self.internal_model.predict_proba(X)
-    
+
     def mean(self):
         """
         return the overall mean of the model
         """
         return self.internal_model.xbar_
-    
+
     def class_means(self):
         """
         return the means of each class
@@ -68,7 +69,7 @@ class LDA(ClassificationModel):
 
     def get_intercept(self):
         return self.internal_model.intercept_
-    
+
     def get_coefficents(self):
         return self.internal_model.coef_
 
@@ -78,9 +79,9 @@ class LDA(ClassificationModel):
         """
         equation_string = "" + self.internal_model.intercept_
 
-        # add the coefficents to the string 
+        # add the coefficents to the string
         coefficents = self.internal_model.coef_
-        for i in range(0,len(self.X.columns)):
+        for i in range(0, len(self.X.columns)):
             equation_string += " + " + coefficents[i] + "*" + self.X.columns[i]
 
         return equation_string

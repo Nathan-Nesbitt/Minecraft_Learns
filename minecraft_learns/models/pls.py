@@ -1,7 +1,7 @@
 """
     Defines PLS Regression - this is more refined than PCA Linear Regression
     This can be used to predict multiple variables by condensing into one
-    
+
     Written By: Kathryn Lecha
     Date: 2021-01-26
 """
@@ -18,6 +18,7 @@ class PLSRegressor(RegressionModel):
     """
     Model class for PLS Regression
     """
+
     def __init__(self, n_components=3, one_hot_encode=False):
         """
         Initalize PLS Regression
@@ -70,7 +71,7 @@ class PLSRegressor(RegressionModel):
         predicted_y = self.internal_model.predict(self._process_data(X))
         super()._evaluate(X, predicted_y)
         return predicted_y
-    
+
     def get_coefficents(self):
         return self.internal_model.coef_
 
@@ -80,9 +81,9 @@ class PLSRegressor(RegressionModel):
         """
         equation_string = ""
 
-        # add the coefficents to the string 
+        # add the coefficents to the string
         coefficents = self.internal_model.coef_
-        for i in range(0,len(self.X.columns)):
+        for i in range(0, len(self.X.columns)):
             equation_string += coefficents[i] + "*" + self.X.columns[i]
             if i < (len(self.X.columns) - 1):
                 equation_string += " + "

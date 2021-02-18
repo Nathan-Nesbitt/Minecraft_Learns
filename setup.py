@@ -5,7 +5,7 @@
     Date: 2021-01-26
 """
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 from os import path
 
@@ -22,7 +22,7 @@ setup(
         "Carlos Rueda Carrasco, Kathryn Lecha, Nathan Nesbitt, "
         + "Adrian Morillo Quiroga"
     ),
-    packages=["minecraft_learns"],
+    packages=find_packages(),
     install_requires=[
         "pandas",
         "numpy",

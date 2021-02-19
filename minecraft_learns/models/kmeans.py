@@ -14,10 +14,26 @@ class KMeans(ClassificationModel):
     Model class for KMeans Classification
     """
 
-    def __init__(self, k, pca=False):
+    def __init__(self, n_clusters=3, pca=False):
+        """
+        @param n_clusters: the number of clusters to create
+        @param pca: boolean defining if pca will be run
+        """
         super().__init__(pca)
-        self.k = k
-        self.internal_model = KMeansModel(n_clusters=k)
+        self.n_clusters = n_clusters
+        self.internal_model = KMeansModel(n_clusters=n_clusters)
+
+    def set_parameters(self, params):
+        """
+        Set the parameters of the model
+        ---
+        @param params: dictionary of parameters to set
+        """
+        super().set_parameters(params)
+        # set k if necessary and add number of clusters to model
+        if params.haskey("k"):
+            self.n_clusters = params["k"]
+            self.internal_model.set_params(**{"n_clusters": params["k"]})
 
     def process_data(self, X, y):
         """

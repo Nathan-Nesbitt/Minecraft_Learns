@@ -13,9 +13,8 @@
 
 from .generic.regression_model import RegressionModel
 from sklearn.linear_model import LinearRegression as LinearRegressionModel
-from sklearn.preprocessing import OneHotEncoder
 
-from pandas import concat, DataFrame
+from ..common import one_hot_encode, interact
 
 
 class LinearRegression(RegressionModel):
@@ -32,6 +31,19 @@ class LinearRegression(RegressionModel):
         self.interactions = interactions
         self.one_hot_encode = one_hot_encode
         self.internal_model = LinearRegressionModel()
+
+    def set_parameters(self, params):
+        """
+        Set the parameters of the model
+        ---
+        @param params: dictionary of parameters to set
+        """
+        super().set_parameters(params)
+
+        if params.haskey("one_hot_encode"):
+            self.one_hot_encode = params["one_hot_encode"]
+        if params.haskey("interactions"):
+            self.interactions = params["interactions"]
 
     def process_data(self, X, y):
         """
@@ -53,9 +65,9 @@ class LinearRegression(RegressionModel):
         @param data: dataframe of n observervations
         """
         if self.one_hot_encode:
-            data = self._one_hot_encode(data)
+            data = one_hot_encode(data, self.one_hot_encode)
         if self.interactions:
-            data = self._interact(data)
+            data = interact(data, self.interactions)
         return data
 
     def predict(self, X):
@@ -66,33 +78,6 @@ class LinearRegression(RegressionModel):
         """
         X = self._process_data(X)
         return super().predict(X)
-
-    def _interact(self, X):
-        """
-        add interactions to X for the columns in self.columns
-        ---
-        @param X: a 2D data matrix of n observations and m predictors
-        """
-        # for each pair of interaction columns, create a new product column
-        for column_1 in self.interactions:
-            for column_2 in self.interactions:
-                if column_1 != column_2:
-                    column_name = "" + column_1 + "*" + column_2
-                    X[column_name] = X[column_1] * X[column_2]
-        return X
-
-    def _one_hot_encode(self, X):
-        """
-        one hot encode the data X
-        ---
-        @param X: a 2D data matrix of n observations and m predictors
-        """
-        # encode the columns
-        encoded = X[self.one_hot_encode]
-        encoded = OneHotEncoder(sparse=False).fit_transform(encoded)
-        encoded = DataFrame(encoded, index=X.index)
-        # remove the duplicates and concatenate
-        return concat([X.drop(self.one_hot_encode, axis=1), encoded], axis=1)
 
     def get_intercept(self):
         return self.internal_model.intercept_

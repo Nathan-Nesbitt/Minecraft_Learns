@@ -6,12 +6,10 @@
     Date: 2021-01-26
 """
 
-
+from ..common import one_hot_encode
 from .generic.regression_model import RegressionModel
-from sklearn.cross_decomposition import PLSRegression
-from sklearn.preprocessing import OneHotEncoder
 
-from pandas import concat, DataFrame
+from sklearn.cross_decomposition import PLSRegression
 
 
 class PLSRegressor(RegressionModel):
@@ -30,6 +28,16 @@ class PLSRegressor(RegressionModel):
         self.one_hot_encode = one_hot_encode
         self.internal_model = PLSRegression(n_components=n_components)
 
+    def set_parameters(self, params):
+        """
+        Set the parameters of the model
+        ---
+        @param params: dictionary of parameters to set
+        """
+        super().set_parameters(params)
+        if params.haskey("one_hot_encode"):
+            self.one_hot_encode = params["one_hot_encode"]
+
     def process_data(self, X, y):
         """
         PLS will handle PCA and scalling automatically
@@ -37,10 +45,7 @@ class PLSRegressor(RegressionModel):
         @param X: a dataframe with n observations of m predictors
         @param y: a dataframe with n observations of t response targets
         """
-        if self.one_hot_encode:
-            self.set_X(self._one_hot_encode(X))
-        else:
-            self.set_X(X)
+        self.set_X(self._process_data(X))
         self.set_y(y)
 
     def _process_data(self, data):
@@ -50,7 +55,7 @@ class PLSRegressor(RegressionModel):
         @param data: dataframe of n observervations
         """
         if self.one_hot_encode:
-            data = self._one_hot_encode(data)
+            data = one_hot_encode(data, self.one_hot_encode)
         return data
 
     def predict(self, X):
@@ -95,16 +100,3 @@ class PLSRegressor(RegressionModel):
         @param X: a 2D data matrix of transformed data
         """
         return self.internal_model.inverse_transform(X)
-
-    def _one_hot_encode(self, X):
-        """
-        one hot encode the data X
-        ---
-        @param X: a 2D data matrix of n observations and m predictors
-        """
-        # encode the columns
-        encoded = X[self.one_hot_encode]
-        encoded = OneHotEncoder(sparse=False).fit_transform(encoded)
-        encoded = DataFrame(encoded, index=X.index)
-        # remove the duplicates and concatenate
-        return concat([X.drop(self.one_hot_encode, axis=1), encoded], axis=1)

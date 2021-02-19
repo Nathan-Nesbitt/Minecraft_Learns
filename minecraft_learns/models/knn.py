@@ -14,11 +14,30 @@ class KNN(ClassificationModel):
     Model class for KNN Classification
     """
 
-    def __init__(self, k):
-        super().__init__()
+    def __init__(self, n_neighbors=3, pca=False):
+        """
+        Initalize the model
+        ----
+        @param n_neighbors: the number of neighbors to conside
+        """
+        super().__init__(pca)
+        self.n_neighbors = n_neighbors
         self.internal_model = KNeighborsClassifier(
-            n_neighbors=k, weights="distance"
-            )
+            n_neighbors=n_neighbors, weights="distance"
+        )
+
+    def set_parameters(self, params):
+        """
+        Set the parameters of the model
+        ---
+        @param params: dictionary of parameters to set
+        """
+        super().set_parameters(params)
+
+        # set k if necessary and add number of neighbors to model
+        if params.haskey("k"):
+            self.n_neighbors = params["k"]
+            self.internal_model.set_params(**{"n_neighbors": params["k"]})
 
     def process_data(self, X, y):
         """

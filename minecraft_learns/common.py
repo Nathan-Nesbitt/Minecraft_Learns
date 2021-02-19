@@ -3,7 +3,6 @@
 """
 
 from numpy import power, sqrt, log
-
 from numpy import sum as np_sum
 
 from pandas import concat, DataFrame

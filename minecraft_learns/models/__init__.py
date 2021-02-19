@@ -12,5 +12,5 @@ from minecraft_learns.models.knn import KNN
 from minecraft_learns.models.lda import LDA
 from minecraft_learns.models.linear_regression import LinearRegression
 from minecraft_learns.models.pls import PLSRegressor
-from minecraft_learns.models.random_forest_classifcation import RandomForestClassifier
-from minecraft_learns.models.random_forest_regression import RandomForestRegressor
+from minecraft_learns.models.random_forest import RandomForestClassifier
+from minecraft_learns.models.random_forest import RandomForestRegressor

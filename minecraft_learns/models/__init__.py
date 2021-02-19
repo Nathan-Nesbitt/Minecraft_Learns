@@ -5,7 +5,8 @@
     Date: 2021-02-12
 """
 
-from minecraft_learns.models.decision_tree import DecisionTree
+from minecraft_learns.models.decision_tree import DecisionTreeClassifier
+from minecraft_learns.models.decision_tree import DecisionTreeRegression
 from minecraft_learns.models.kmeans import KMeans
 from minecraft_learns.models.knn import KNN
 from minecraft_learns.models.lda import LDA

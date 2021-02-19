@@ -25,11 +25,11 @@ def euclidean_distance(a, b):
     return sqrt(np_sum(power(a - b, 2), axis=1))
 
 
-def interact(X, interaction_cols):
+def interact(data, interaction_cols):
     """
-    add interactions to X for the columns in self.columns
+    add interactions to data for the columns in self.columns
     ---
-    @param X: a 2D data matrix of n observations and m predictors
+    @param data: a 2D data matrix of n observations and m predictors
     @param interaction_cols: list of columns to interact
     """
     # for each pair of interaction columns, create a new product column
@@ -37,23 +37,23 @@ def interact(X, interaction_cols):
         for column_2 in interaction_cols:
             if column_1 != column_2:
                 column_name = "" + column_1 + "*" + column_2
-                X[column_name] = X[column_1] * X[column_2]
-    return X
+                data[column_name] = data[column_1] * data[column_2]
+    return data
 
 
-def one_hot_encode(X, encode_cols):
+def one_hot_encode(data, encode_cols):
     """
-    one hot encode the data X
+    one hot encode the dataframe data
     ---
-    @param X: a 2D data matrix of n observations and m predictors
+    @param data: a 2D data matrix of n observations and m predictors
     @param encode_cols: list of columns to encode
     """
     # encode the columns
-    encoded = X[encode_cols]
+    encoded = data[encode_cols]
     encoded = OneHotEncoder(sparse=False).fit_transform(encoded)
-    encoded = DataFrame(encoded, index=X.index)
+    encoded = DataFrame(encoded, index=data.index)
     # remove the duplicates and concatenate
-    return concat([X.drop(encode_cols, axis=1), encoded], axis=1)
+    return concat([data.drop(encode_cols, axis=1), encoded], axis=1)
 
 
 def pca(data, n_components=None):

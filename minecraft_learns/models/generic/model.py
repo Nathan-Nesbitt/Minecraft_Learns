@@ -29,7 +29,9 @@ class Model:
         ---
         @param params: dictionary of parameters to set
         """
-        if params.haskey("pca"):
+        if params is None:
+            return
+        if "pca" in params.keys():
             self.pca = params["pca"]
 
     def process_data(self, data):

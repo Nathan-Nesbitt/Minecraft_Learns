@@ -5,8 +5,8 @@
     Date: 2020-11-08
 """
 
-
-from pandas import read_csv
+from json import load
+from pandas import read_json
 
 import os
 
@@ -26,7 +26,17 @@ class Data:
         # Tries to open the file
         if not os.path.exists(self.location):
             raise FileNotFoundError("Data file doesn't exist")
-        self.df = read_csv(self.location, sep=",", header=0)
+
+        json_lines = self._load_data_json_lines().splitlines()
+        self.df = read_json('[%s]' % ','.join(json_lines))
+
+    def _load_data_json_lines(self):
+        """
+        load the data as json lines
+        """
+        with open(self.location) as f:
+            data = f.read()
+        return data
 
     def delete_file(self):
         """ Deletes the file """

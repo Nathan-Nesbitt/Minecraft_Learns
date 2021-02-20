@@ -19,7 +19,7 @@ class DecisionTreeClassifier(ClassificationModel):
     """
 
     def __init__(self, pca=False):
-        super.__init__(pca)
+        super().__init__(pca)
         self.internal_model = DecisionTreeClas()
 
     def process_data(self, X, y):
@@ -45,7 +45,7 @@ class DecisionTreeRegression(RegressionModel):
     """
 
     def __init__(self, pca=False):
-        super.__init__(pca)
+        super().__init__(pca)
         self.internal_model = DecisionTreeReg()
 
     def process_data(self, X, y):

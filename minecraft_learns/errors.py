@@ -1,6 +1,5 @@
 """
-    This is a file containing all of the required errors for the Minecraft
-    Education API.
+    This is a file containing all of the required errors for Minecraft_Learns
 
     Written By: Kathryn Lecha
     Date: 2021-02-12

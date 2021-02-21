@@ -38,12 +38,14 @@ class LinearRegression(RegressionModel):
         ---
         @param params: dictionary of parameters to set
         """
+        if params is None:
+            return
         super().set_parameters(params)
 
-        if params.haskey("one_hot_encode"):
-            self.one_hot_encode = params["one_hot_encode"]
-        if params.haskey("interactions"):
+        if "interactions" in params.keys():
             self.interactions = params["interactions"]
+        if "one_hot_encode" in params.keys():
+            self.one_hot_encode = params["one_hot_encode"]
 
     def process_data(self, X, y):
         """

@@ -34,8 +34,11 @@ class PLSRegressor(RegressionModel):
         ---
         @param params: dictionary of parameters to set
         """
+        if params is None:
+            return
         super().set_parameters(params)
-        if params.haskey("one_hot_encode"):
+
+        if "one_hot_encode" in params.keys():
             self.one_hot_encode = params["one_hot_encode"]
 
     def process_data(self, X, y):

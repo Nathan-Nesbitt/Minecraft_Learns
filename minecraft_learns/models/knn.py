@@ -32,10 +32,12 @@ class KNN(ClassificationModel):
         ---
         @param params: dictionary of parameters to set
         """
+        if params is None:
+            return
         super().set_parameters(params)
 
         # set k if necessary and add number of neighbors to model
-        if params.haskey("k"):
+        if "k" in params.keys():
             self.n_neighbors = params["k"]
             self.internal_model.set_params(**{"n_neighbors": params["k"]})
 

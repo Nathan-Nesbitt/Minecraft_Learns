@@ -1,8 +1,8 @@
 """
     Reads in JSON file and converts it to a Dataframe for futher use.
 
-    Written By: Nathan Nesbitt
-    Date: 2020-11-08
+    Written By: Nathan Nesbitt, Kathryn Lecha
+    Edit Date: 2021-02-20
 """
 
 from json import load
@@ -24,19 +24,24 @@ class Data:
         @param filename: String filename that the user can access.
         """
         self.location = location
+        self.load_data()
 
+    def load_data(self):
+        """
+        load the data by filetype
+        """
         # Tries to open the file
         if not os.path.exists(self.location):
             raise FileNotFoundError("Data file doesn't exist")
 
-        if ".jsonl" in location:
-            self.load_json_lines(location)
-        elif ".json" in location:
-            self.load_json(location)
-        elif ".csv" in location:
-            self.load_csv(location)
+        if ".jsonl" in self.location:
+            self.load_json_lines(self.location)
+        elif ".json" in self.location:
+            self.load_json(self.location)
+        elif ".csv" in self.location:
+            self.load_csv(self.location)
         else:
-            message = "" + location + " is not a valid dataformat"
+            message = "" + self.location + " is not a valid dataformat"
             raise NoDataStored(message)
 
     def load_json(self, location):

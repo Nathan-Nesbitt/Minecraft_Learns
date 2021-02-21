@@ -6,22 +6,22 @@
 """
 
 from ...common import pca, standardize
-from ...errors import UnProcessedData
+from ...errors import UnProcessedData, ModelNotFit
 
 from sklearn.model_selection import cross_val_score
+from sklearn.exceptions import NotFittedError
+from numpy import nan
 
 
 class Model:
     """
     Generic Abstract Model Class all models inherit fromx
-    ---
-    TODO: convert to Abstract Base Class with abc
     """
 
     def __init__(self, pca=False):
         self.internal_model = None
         self.pca = pca
-        self.score = [0, 0, 0, 0, 0]
+        self.score = nan
 
     def set_parameters(self, params):
         """
@@ -61,18 +61,27 @@ class Model:
         ---
         @param X: a 2D data matrix of n observations and m predictors
         """
-        predicted_y = self.internal_model.predict(X)
-        self._evaluate(X, predicted_y)
-        return predicted_y
+        try:
+            # if X is one dimensional, reshape it
+            if X.ndim == 1:
+                X = X.reshape(-1, 1)
 
-    def evaluate(self, y):
-        return self.score.mean()
+            # predict and evaluate
+            predicted_y = self.internal_model.predict(X)
+            self._evaluate(X, predicted_y)
+            return predicted_y
+        except NotFittedError:
+            raise ModelNotFit("predict")
+
+    def evaluate(self):
+        return self.score
 
     def _evaluate(self, X, y):
         """
         Score the model using the default values
         """
-        self.score = cross_val_score(self.internal_model, X, y, cv=5)
+        if len(X) > 5:
+            self.score = cross_val_score(self.internal_model, X, y).mean()
 
     def set_X(self, X):
         """

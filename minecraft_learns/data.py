@@ -52,7 +52,7 @@ class Data:
         with open(self.location) as f:
             data = f.read()
         try:
-            self.df = read_json('[%s]' % ','.join(json_lines.splitlines()))
+            self.df = read_json('[%s]' % ','.join(data.splitlines()))
         except KeyError:
             message = "" + location + " is empty"
             raise NoDataStored(message)

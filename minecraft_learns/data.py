@@ -1,12 +1,14 @@
 """
     Reads in JSON file and converts it to a Dataframe for futher use.
 
-    Written By: Nathan Nesbitt
-    Date: 2020-11-08
+    Written By: Nathan Nesbitt, Kathryn Lecha
+    Edit Date: 2021-02-20
 """
 
 from json import load
-from pandas import read_json
+from pandas import read_json, read_csv
+
+from .errors import NoDataStored
 
 import os
 
@@ -22,21 +24,47 @@ class Data:
         @param filename: String filename that the user can access.
         """
         self.location = location
+        self.load_data()
 
+    def load_data(self):
+        """
+        load the data by filetype
+        """
         # Tries to open the file
         if not os.path.exists(self.location):
             raise FileNotFoundError("Data file doesn't exist")
 
-        json_lines = self._load_data_json_lines().splitlines()
-        self.df = read_json('[%s]' % ','.join(json_lines))
+        if ".jsonl" in self.location:
+            self.load_json_lines(self.location)
+        elif ".json" in self.location:
+            self.load_json(self.location)
+        elif ".csv" in self.location:
+            self.load_csv(self.location)
+        else:
+            message = "" + self.location + " is not a valid dataformat"
+            raise NoDataStored(message)
 
-    def _load_data_json_lines(self):
+    def load_json(self, location):
+        self.df = read_json(location)
+
+    def load_csv(self, location):
+        self.df = read_csv(location)
+
+    def load_json_lines(self, location):
         """
         load the data as json lines
         """
+        # load the data
+        data = ""
         with open(self.location) as f:
             data = f.read()
-        return data
+
+        # convert to dataframe
+        try:
+            self.df = read_json('[%s]' % ','.join(data.splitlines()))
+        except KeyError:
+            message = "" + location + " is empty"
+            raise NoDataStored(message)
 
     def delete_file(self):
         """ Deletes the file """

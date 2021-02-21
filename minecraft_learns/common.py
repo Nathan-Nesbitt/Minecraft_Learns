@@ -8,7 +8,7 @@ from numpy import sum as np_sum
 from pandas import concat, DataFrame
 
 from sklearn.decomposition import PCA
-from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 
 
 def euclidean_distance(a, b):
@@ -85,6 +85,32 @@ def standardize(data):
     """
     return (data - data.min()) / data.std()
 
+
+def label_encoding(data):
+    """
+    encode the data at the following columns and save the label encoder
+    ---
+    @param data: a dataframe
+    """
+    # get the columns to encode
+    encode_cols = data.select_dtypes(include=["object"]).columns
+
+    # encode the labels
+    label_encoder = LabelEncoder().fit(data[encode_cols])
+    temp = label_encoder.transform(data[encode_cols])
+    data.loc[:, encode_cols] = DataFrame(temp, columns=encode_cols)
+
+    # return the new data
+    return label_encoder, data
+
+
+def encode_labels(label_encoder, data):
+    """
+    encode the data at the following columns and save the label encoder
+    ---
+    @param data: a dataframe
+    """
+    return label_encoder.transform(data)
 
 def log_transform(data):
     """

@@ -38,3 +38,19 @@ class ModelNotFit(IncorrectFlow):
 
     def __init__(self, entered_type):
         super().__init__(entered_type, "The model has not been fit yet")
+
+
+class NoDataStoref(Exception):
+    """
+    Error class that defines all flow errors during user tasks
+    For example if the user tries to predict without fitting, this error
+    can be thrown
+    """
+
+    def __init__(self, method, message="No Data has been stored"):
+        self.method = method
+        self.message = message
+        super().__init__(self.message)
+
+    def __str__(self):
+        return f"{self.method} -> {self.message}"

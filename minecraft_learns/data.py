@@ -29,11 +29,11 @@ class Data:
         if not os.path.exists(self.location):
             raise FileNotFoundError("Data file doesn't exist")
 
-        if "jsonl" in location:
+        if ".jsonl" in location:
             self.load_json_lines(location)
-        elif "json" in location:
+        elif ".json" in location:
             self.load_json(location)
-        elif "csv" in location:
+        elif ".csv" in location:
             self.load_csv(location)
         else:
             message = "" + location + " is not a valid dataformat"

@@ -49,8 +49,12 @@ class Data:
         """
         load the data as json lines
         """
+        # load the data
+        data = ""
         with open(self.location) as f:
             data = f.read()
+
+        # convert to dataframe
         try:
             self.df = read_json('[%s]' % ','.join(data.splitlines()))
         except KeyError:

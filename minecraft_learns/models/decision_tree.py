@@ -10,7 +10,7 @@ from .generic.regression_model import RegressionModel
 
 from sklearn.tree import DecisionTreeClassifier as DecisionTreeClas
 from sklearn.tree import DecisionTreeRegressor as DecisionTreeReg
-from sklearn.tree import plot_tree
+from ..graphing import plot_decision_tree
 
 
 class DecisionTreeClassifier(ClassificationModel):
@@ -35,8 +35,8 @@ class DecisionTreeClassifier(ClassificationModel):
     def feature_importance(self):
         return self.internal_model.feature_importances_
 
-    def plot_decision_tree(self):
-        plot_tree(self.internal_model, feature_names=self.X.columns)
+    def plot_tree(self, feature_names=None):
+        plot_decision_tree(self.internal_model, columns=self.X.columns)
 
 
 class DecisionTreeRegression(RegressionModel):
@@ -61,5 +61,5 @@ class DecisionTreeRegression(RegressionModel):
     def feature_importance(self):
         return self.internal_model.feature_importances_
 
-    def plot_decision_tree(self):
-        plot_tree(self.internal_model, feature_names=self.X.columns)
+    def plot_tree(self, feature_names=None):
+        plot_decision_tree(self.internal_model, columns=self.X.columns)

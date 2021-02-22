@@ -65,7 +65,7 @@ def pca(data, n_components=None):
     @param data: a dataframe
     """
     pca = PCA(n_components=n_components)
-    return pca.fit_transform((data - data.mean()) / (data.max() - data.min()))
+    return pca.fit_transform(mean_normalization(data))
 
 
 def mean_normalization(data):
@@ -149,3 +149,7 @@ def log_transform(data):
     outputs a new dataframe with log transformed values
     """
     return log(normalize(data))
+
+
+def is_dataframe(data):
+    return isinstance(data, DataFrame)

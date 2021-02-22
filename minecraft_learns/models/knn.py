@@ -5,8 +5,6 @@
     Date: 2021-01-26
 """
 
-from ..graphing import scatter_groups
-
 from .generic.classification_model import ClassificationModel
 from sklearn.neighbors import KNeighborsClassifier
 
@@ -62,14 +60,3 @@ class KNN(ClassificationModel):
         X = super().process_data(X)
         predicted_y = super().predict(X)
         return predicted_y
-    
-    def plot(self, location=None):
-        """
-        plot the groups
-        """
-        scatter_groups(
-            self.X[self.X.columns[0]], self.X[self.X.columns[1]],
-            self.predict(self.X),
-            "Groups Found in KNN", self.X.columns[0], self.X.columns[1],
-            location
-        )

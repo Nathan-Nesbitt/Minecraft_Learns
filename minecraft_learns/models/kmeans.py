@@ -5,8 +5,6 @@
     Date: 2021-01-26
 """
 
-from ..graphing import scatter_groups
-
 from .generic.classification_model import ClassificationModel
 from sklearn.cluster import KMeans as KMeansModel
 
@@ -57,14 +55,3 @@ class KMeans(ClassificationModel):
         """
         X = super().process_data(X)
         return super().predict(X)
-
-    def plot(self, location=None):
-        """
-        plot the groups
-        """
-        scatter_groups(
-            self.X[self.X.columns[0]], self.X[self.X.columns[1]],
-            self.predict(self.X),
-            "Groups Found in KMeans", self.X.columns[0], self.X.columns[1],
-            location
-        )

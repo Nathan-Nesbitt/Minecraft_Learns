@@ -117,7 +117,11 @@ def label_encoding(data):
     @param data: a dataframe
     """
     # get the columns to encode
-    encode_cols = data.select_dtypes(include=["object"]).columns
+    encode_cols = []
+    if data.ndim == 1:
+        encode_cols = data.name
+    else:
+        encode_cols = data.select_dtypes(include=["object"]).columns
 
     # encode the labels
     label_encoder = LabelEncoder().fit(data[encode_cols])

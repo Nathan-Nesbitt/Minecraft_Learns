@@ -35,7 +35,7 @@ class DecisionTreeClassifier(ClassificationModel):
     def feature_importance(self):
         return self.internal_model.feature_importances_
 
-    def plot_tree(self, feature_names=None):
+    def plot(self, feature_names=None):
         plot_decision_tree(self.internal_model, columns=self.X.columns)
 
 
@@ -61,5 +61,5 @@ class DecisionTreeRegression(RegressionModel):
     def feature_importance(self):
         return self.internal_model.feature_importances_
 
-    def plot_tree(self, feature_names=None):
+    def plot(self, feature_names=None):
         plot_decision_tree(self.internal_model, columns=self.X.columns)

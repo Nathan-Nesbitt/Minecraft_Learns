@@ -40,7 +40,7 @@ class ModelNotFit(IncorrectFlow):
         super().__init__(entered_type, "The model has not been fit yet")
 
 
-class NoDataStoref(Exception):
+class NoDataStored(Exception):
     """
     Error class that defines all flow errors during user tasks
     For example if the user tries to predict without fitting, this error

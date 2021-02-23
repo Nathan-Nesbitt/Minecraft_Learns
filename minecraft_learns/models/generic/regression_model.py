@@ -7,7 +7,7 @@ Date: 2021-01-26
 
 
 from .model import Model
-from ...common import is_dataframe
+from ...common import get_ith_column
 from ...graphing import scatter
 
 from numpy import square, subtract
@@ -33,15 +33,6 @@ class RegressionModel(Model):
         return square(subtract(self.y.values, self.predict(self.X))).mean()
 
     def plot(self, location=None):
-        if is_dataframe(self.X):
-            scatter(
-                self.X[self.X.columns[0]], self.predict(self.X),
-                "Predicted Regression", self.X.columns[0], "Predicted Y",
-                location
-            )
-        else:
-            scatter(
-                self.X[:,0], self.predict(self.X),
-                "Predicted Regression", "x", "Predicted Y",
-                location
-            )
+        x, x_label = get_ith_column(self.X, 0)
+        y = get_ith_column(self.predict(self.X), 0)[0]
+        scatter(x, y, "Predicted Regression", x_label, "y", location)

@@ -153,3 +153,19 @@ def log_transform(data):
 
 def is_dataframe(data):
     return isinstance(data, DataFrame)
+
+
+def get_ith_column(data, i=0):
+    """
+    get the ith column of a dataframe or array
+    ---
+    @param data: a dataframe
+    @param i: the column number
+    """
+    if data.ndim == 1:
+        return data
+
+    if is_dataframe(data):
+        return data[data.columns[0]], data.columns[0]
+    else:
+        return data[:, 0], "0"

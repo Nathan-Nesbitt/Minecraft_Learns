@@ -7,8 +7,8 @@ Edit-Date: 2021-02-13
 
 
 from .model import Model
+from ...common import get_ith_column
 from ...graphing import scatter_groups
-from ...common import is_dataframe
 
 from sklearn.metrics import accuracy_score, average_precision_score
 from sklearn.metrics import plot_precision_recall_curve
@@ -77,16 +77,9 @@ class ClassificationModel(Model):
         """
         plot the groups
         """
-        if is_dataframe(self.X):
-            scatter_groups(
-                self.X[self.X.columns[0]], self.X[self.X.columns[1]],
-                self.predict(self.X),
-                "Groups Found", self.X.columns[0], self.X.columns[1],
-                location
-            )
-        else:
-            scatter_groups(
-                self.X[:,0], self.X[:,1], self.predict(self.X),
-                "Groups Found", "0", "1",
-                location
-            )
+        x, x_label = get_ith_column(self.X, 0)
+        y, y_label = get_ith_column(self.X, 1)
+        groups = get_ith_column(self.predict(self.X), 0)
+        scatter_groups(
+            x, y, groups, "Groups Found", x_label, y_label, location
+        )

@@ -8,6 +8,8 @@
 from ...common import pca, standardize
 from ...errors import UnProcessedData, ModelNotFit
 
+from joblib import dump, load
+
 from sklearn.model_selection import cross_val_score
 from sklearn.exceptions import NotFittedError
 from numpy import nan
@@ -98,3 +100,9 @@ class Model:
         @param y: a series with n response observations
         """
         self.y = y
+    
+    def save_model(self, filename):
+        dump(self.internal_model, filename)
+    
+    def load_model(self, filename):
+        self.internal_model = load(filename)

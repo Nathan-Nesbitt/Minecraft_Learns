@@ -39,7 +39,7 @@ class Model:
         Process the data
         """
         if self.pca:
-            return pca(standardize(data))
+            return pca(data)
         else:
             return standardize(data)
 

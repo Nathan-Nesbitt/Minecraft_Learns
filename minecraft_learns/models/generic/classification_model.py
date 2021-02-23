@@ -7,6 +7,9 @@ Edit-Date: 2021-02-13
 
 
 from .model import Model
+from ...common import get_ith_column
+from ...graphing import scatter_groups
+
 from sklearn.metrics import accuracy_score, average_precision_score
 from sklearn.metrics import plot_precision_recall_curve
 from matplotlib import pyplot
@@ -69,3 +72,14 @@ class ClassificationModel(Model):
         plot = plot_precision_recall_curve(self.internal_model, test_X, test_y)
         title = "2-class Precision-Recall curve: AP={0:0.2f}"
         plot.ax_.set_title(title.format(average_precision))
+
+    def plot(self, location=None):
+        """
+        plot the groups
+        """
+        x, x_label = get_ith_column(self.X, 0)
+        y, y_label = get_ith_column(self.X, 1)
+        groups = get_ith_column(self.predict(self.X), 0)
+        scatter_groups(
+            x, y, groups, "Groups Found", x_label, y_label, location
+        )

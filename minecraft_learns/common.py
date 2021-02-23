@@ -11,6 +11,9 @@ from sklearn.decomposition import PCA
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 
 
+ALMOST_ZERO = 0.000001
+
+
 def euclidean_distance(a, b):
     """
     find the euclidean distance between a and b
@@ -61,7 +64,22 @@ def pca(data, n_components=None):
     ---
     @param data: a dataframe
     """
-    return PCA(n_components=n_components).fit_transform(data)
+    pca = PCA(n_components=n_components)
+    return pca.fit_transform(mean_normalization(data))
+
+
+def mean_normalization(data):
+    """
+    Normalize the Data between -1 and 1 with mean 0
+    ---
+    @param data: a dataframe
+    ---
+    outputs a new dataframe with normalized values
+    """
+    if (data.std() != 0).all():
+        return (data - data.mean()) / data.std()
+    else:
+        return (data - data.mean()) / (data.std() + ALMOST_ZERO)
 
 
 def normalize(data):
@@ -72,7 +90,10 @@ def normalize(data):
     ---
     outputs a new dataframe with normalized values
     """
-    return (data - data.min()) / (data.max() - data.min())
+    if ((data.max() - data.min()) != 0).all():
+        return (data - data.min()) / (data.max() - data.min())
+    else:
+        return (data - data.min()) / (data.max() - data.min() + ALMOST_ZERO)
 
 
 def standardize(data):
@@ -83,7 +104,10 @@ def standardize(data):
     ---
     outputs a new dataframe with standardized values
     """
-    return (data - data.min()) / data.std()
+    if (data.std() != 0).all():
+        return (data - data.min()) / data.std()
+    else:
+        return (data - data.min()) / (data.std() + ALMOST_ZERO)
 
 
 def label_encoding(data):
@@ -93,7 +117,11 @@ def label_encoding(data):
     @param data: a dataframe
     """
     # get the columns to encode
-    encode_cols = data.select_dtypes(include=["object"]).columns
+    encode_cols = []
+    if data.ndim == 1:
+        encode_cols = data.name
+    else:
+        encode_cols = data.select_dtypes(include=["object"]).columns
 
     # encode the labels
     label_encoder = LabelEncoder().fit(data[encode_cols])
@@ -121,3 +149,23 @@ def log_transform(data):
     outputs a new dataframe with log transformed values
     """
     return log(normalize(data))
+
+
+def is_dataframe(data):
+    return isinstance(data, DataFrame)
+
+
+def get_ith_column(data, i=0):
+    """
+    get the ith column of a dataframe or array
+    ---
+    @param data: a dataframe
+    @param i: the column number
+    """
+    if data.ndim == 1:
+        return data
+
+    if is_dataframe(data):
+        return data[data.columns[0]], data.columns[0]
+    else:
+        return data[:, 0], "0"

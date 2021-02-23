@@ -49,7 +49,7 @@ class KNN(ClassificationModel):
         @param y: a series with n response observations
         """
         super().set_X(super().process_data(X))
-        super().set_y(super().process_data(y))
+        super().set_y(y)
 
     def predict(self, X):
         """

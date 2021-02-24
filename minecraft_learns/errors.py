@@ -24,7 +24,8 @@ class UnProcessedData(IncorrectFlow):
     """
 
     def __init__(self):
-        super().__init__("The data must be processed before training")
+        self.message = "The data must be processed before training"
+        super().__init__(self.message)
 
 
 class ModelNotFit(IncorrectFlow):
@@ -33,6 +34,7 @@ class ModelNotFit(IncorrectFlow):
     """
 
     def __init__(self):
+        self.message = "The model must be fit before prediction"
         super().__init__("The model must be fit before prediction")
 
 

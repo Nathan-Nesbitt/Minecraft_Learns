@@ -55,14 +55,17 @@ class Model:
             self.internal_model = self.internal_model.fit(self.X, self.y)
             self._evaluate(self.X, self.y)
         except(AttributeError):
-            raise UnProcessedData("train")
+            raise UnProcessedData()
 
-    def predict(self, X):
+    def predict(self, X=None):
         """
         Predict the response variable y for the input data X
         ---
         @param X: a 2D data matrix of n observations and m predictors
         """
+        if X is None:
+            X = self.X
+
         try:
             # if X is one dimensional, reshape it
             if X.ndim == 1:
@@ -73,7 +76,7 @@ class Model:
             self._evaluate(X, predicted_y)
             return predicted_y
         except NotFittedError:
-            raise ModelNotFit("predict")
+            raise ModelNotFit()
 
     def evaluate(self):
         return self.score

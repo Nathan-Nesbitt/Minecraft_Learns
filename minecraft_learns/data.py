@@ -41,7 +41,10 @@ class Data:
         elif ".csv" in self.location:
             self.load_csv(self.location)
         else:
-            message = "" + self.location + " is not a valid dataformat"
+            message = (
+                "" + self.location + " is not a supported dataformat. " +
+                "The following datatypes are supported: [.csv, .json, .jsonl]"
+            )
             raise NoDataStored(message)
 
     def load_json(self, location):
@@ -63,7 +66,7 @@ class Data:
         try:
             self.df = read_json('[%s]' % ','.join(data.splitlines()))
         except KeyError:
-            message = "" + location + " is empty"
+            message = "" + location + " is empty. There is no data to read."
             raise NoDataStored(message)
 
     def delete_file(self):
@@ -71,7 +74,9 @@ class Data:
         try:
             os.remove(self.location)
         except PermissionError:
-            raise PermissionError("Error Deleting File. No Permissions.")
+            raise PermissionError(
+                "Error Deleting File. No Permission to delete."
+            )
         except OSError:
             raise OSError("Error Deleting File.")
 

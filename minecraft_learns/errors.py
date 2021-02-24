@@ -13,13 +13,9 @@ class IncorrectFlow(Exception):
     can be thrown
     """
 
-    def __init__(self, method, message="The method cannot be executed yet"):
-        self.method = method
+    def __init__(self, message="The method cannot be executed yet"):
         self.message = message
         super().__init__(self.message)
-
-    def __str__(self):
-        return f"{self.method} -> {self.message}"
 
 
 class UnProcessedData(IncorrectFlow):
@@ -27,8 +23,9 @@ class UnProcessedData(IncorrectFlow):
     Exception which indicates that the data has not been processed
     """
 
-    def __init__(self, entered_type):
-        super().__init__(entered_type, "The data has not been processed yet")
+    def __init__(self):
+        self.message = "The data must be processed before training"
+        super().__init__(self.message)
 
 
 class ModelNotFit(IncorrectFlow):
@@ -36,8 +33,9 @@ class ModelNotFit(IncorrectFlow):
     Exception which indicates that the model has not been fit yet
     """
 
-    def __init__(self, entered_type):
-        super().__init__(entered_type, "The model has not been fit yet")
+    def __init__(self):
+        self.message = "The model must be fit before prediction"
+        super().__init__("The model must be fit before prediction")
 
 
 class NoDataStored(Exception):
@@ -47,10 +45,6 @@ class NoDataStored(Exception):
     can be thrown
     """
 
-    def __init__(self, method, message="No Data has been stored"):
-        self.method = method
+    def __init__(self, message="No Data has been stored"):
         self.message = message
         super().__init__(self.message)
-
-    def __str__(self):
-        return f"{self.method} -> {self.message}"

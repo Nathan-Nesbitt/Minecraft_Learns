@@ -39,7 +39,7 @@ def interact(data, interaction_cols):
         for column_2 in interaction_cols:
             if column_1 != column_2:
                 column_name = "" + column_1 + "*" + column_2
-                data[column_name] = data[column_1] * data[column_2]
+                data.loc[:, column_name] = data[column_1] * data[column_2]
     return data
 
 
@@ -63,12 +63,13 @@ def pca(data, n_components=None):
     Transform the data using pca
     ---
     @param data: a dataframe
+    @oaram n_components: the number of components to keep. If None, keep all
     """
     pca = PCA(n_components=n_components)
-    return pca.fit_transform(mean_normalization(data))
+    return pca.fit_transform(mean_zero_normalize(data))
 
 
-def mean_normalization(data):
+def mean_zero_normalize(data):
     """
     Normalize the Data between -1 and 1 with mean 0
     ---
@@ -105,9 +106,9 @@ def standardize(data):
     outputs a new dataframe with standardized values
     """
     if (data.std() != 0).all():
-        return (data - data.min()) / data.std()
+        return (data - data.mean()) / data.std()
     else:
-        return (data - data.min()) / (data.std() + ALMOST_ZERO)
+        return (data - data.mean()) / (data.std() + ALMOST_ZERO)
 
 
 def label_encoding(data):
@@ -119,9 +120,14 @@ def label_encoding(data):
     # get the columns to encode
     encode_cols = []
     if data.ndim == 1:
-        encode_cols = data.name
+        # check to see if the data is an object
+        if data.dtype == "dtype('O')":
+            # if there is no name, create one
+            if not data.name:
+                data.name = "data"
+            encode_cols = data.name
     else:
-        encode_cols = data.select_dtypes(include=["object"]).columns
+        encode_cols = data.columns[data.dtypes=="object"].to_list()
 
     # encode the labels
     label_encoder = LabelEncoder().fit(data[encode_cols])
@@ -134,15 +140,16 @@ def label_encoding(data):
 
 def encode_labels(label_encoder, data):
     """
-    encode the data at the following columns and save the label encoder
+    encode the data using the label encoder
     ---
+    @param label_encoder: label encoder to encode data
     @param data: a dataframe
     """
     return label_encoder.transform(data)
 
 def log_transform(data):
     """
-    normalize and log transform teh dataframe
+    normalize and log transform the dataframe
     ---
     @param data: a dataframe
     ---
@@ -166,6 +173,6 @@ def get_ith_column(data, i=0):
         return data
 
     if is_dataframe(data):
-        return data[data.columns[0]], data.columns[0]
+        return data[data.columns[i]], data.columns[i]
     else:
-        return data[:, 0], "0"
+        return data[:, i], ""+i

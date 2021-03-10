@@ -26,7 +26,7 @@ def hist(population_list, title, xlabel, location=None):
     @param population_list: list of data vectors to graph
     @param title: string title for graph
     @param xlabel: string labels for x axis
-    @param population_label: string labels for population
+    @param location: location to save the plot
     ---
     displays output plot
     '''

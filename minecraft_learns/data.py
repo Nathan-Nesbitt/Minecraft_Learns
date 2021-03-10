@@ -14,16 +14,15 @@ import os
 
 
 class Data:
-    def __init__(self, location):
+    def __init__(self, filename):
         """
         Simply initializes an object that is an open file that can be
         written to.
 
-        @param location: String path to a directory on the system that the
+        @param filename: String path to a file on the system that the
             user can access
-        @param filename: String filename that the user can access.
         """
-        self.location = location
+        self.filename = filename
         self.load_data()
 
     def load_data(self):
@@ -31,48 +30,48 @@ class Data:
         load the data by filetype
         """
         # Tries to open the file
-        if not os.path.exists(self.location):
+        if not os.path.exists(self.filename):
             raise FileNotFoundError("Data file doesn't exist")
 
-        if ".jsonl" in self.location:
-            self.load_json_lines(self.location)
-        elif ".json" in self.location:
-            self.load_json(self.location)
-        elif ".csv" in self.location:
-            self.load_csv(self.location)
+        if ".jsonl" in self.filename:
+            self.load_json_lines(self.filename)
+        elif ".json" in self.filename:
+            self.load_json(self.filename)
+        elif ".csv" in self.filename:
+            self.load_csv(self.filename)
         else:
             message = (
-                "" + self.location + " is not a supported dataformat. " +
+                "" + self.filename + " is not a supported dataformat. " +
                 "The following datatypes are supported: [.csv, .json, .jsonl]"
             )
             raise NoDataStored(message)
 
-    def load_json(self, location):
-        self.df = read_json(location)
+    def load_json(self, filename):
+        self.df = read_json(filename)
 
-    def load_csv(self, location):
-        self.df = read_csv(location)
+    def load_csv(self, filename):
+        self.df = read_csv(filename)
 
-    def load_json_lines(self, location):
+    def load_json_lines(self, filename):
         """
         load the data as json lines
         """
         # load the data
         data = ""
-        with open(self.location) as f:
+        with open(self.filename) as f:
             data = f.read()
 
         # convert to dataframe
         try:
             self.df = read_json('[%s]' % ','.join(data.splitlines()))
         except KeyError:
-            message = "" + location + " is empty. There is no data to read."
+            message = "" + filename + " is empty. There is no data to read."
             raise NoDataStored(message)
 
     def delete_file(self):
         """ Deletes the file """
         try:
-            os.remove(self.location)
+            os.remove(self.filename)
         except PermissionError:
             raise PermissionError(
                 "Error Deleting File. No Permission to delete."

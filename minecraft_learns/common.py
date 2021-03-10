@@ -39,7 +39,7 @@ def interact(data, interaction_cols):
         for column_2 in interaction_cols:
             if column_1 != column_2:
                 column_name = "" + column_1 + "*" + column_2
-                data[column_name] = data[column_1] * data[column_2]
+                data.loc[:, column_name] = data[column_1] * data[column_2]
     return data
 
 

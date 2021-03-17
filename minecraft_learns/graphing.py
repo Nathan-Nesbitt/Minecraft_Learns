@@ -52,6 +52,7 @@ def hist(population_list, title, xlabel, location=None):
     pyplot.legend()
 
     if location:
+        pyplot.show()
         pyplot.savefig(location)
     else:
         pyplot.show()
@@ -69,10 +70,10 @@ def plot_decision_tree(model, columns=None, location=None):
     plot_tree(model, feature_names=columns)
 
     pyplot.title("Decision Tree Splits", fontsize=14, color=BLACK)
+
+    pyplot.show()
     if location:
         pyplot.savefig(location)
-    else:
-        pyplot.show()
 
 
 def scatter(x, y, title, xlabel, ylabel, location=None):
@@ -129,7 +130,24 @@ def scatter_groups(x, y, groups, title, xlabel, ylabel, location=None):
 
     pyplot.legend(*scatter.legend_elements(), title="Classes")
     
+    pyplot.show()
     if location:
         pyplot.savefig(location)
-    else:
-        pyplot.show()
+
+
+def plot_accuracies(accuracies, hyperparams, location=None):
+    """
+    plot the accuracies over the hyperparams
+    """
+    pyplot.figure(figsize=(11, 6), dpi=150)
+    pyplot.grid(color=BLACK, alpha=0.5)
+
+    pyplot.plot(hyperparams, accuracies, color=SINGLECLASSCOLOR)
+
+    pyplot.title('Comparision of Accuracies', fontsize=14, color=BLACK)
+    pyplot.ylabel('Accuracy', fontsize=12, color=BLACK)
+    pyplot.xlabel('Hyperparameter Value', fontsize=12, color=BLACK)
+
+    pyplot.show()
+    if location:
+        pyplot.savefig(location)

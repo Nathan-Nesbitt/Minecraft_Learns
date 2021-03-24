@@ -15,7 +15,7 @@ with open(path.join(this_directory, "README.md"), encoding="utf-8") as f:
 
 setup(
     name="minecraft_learns",
-    version="0.0.14",
+    version="0.0.15",
     description="Machine Learning library for Minecraft Education AI interactions",
     url="https://github.com/Nathan-Nesbitt/Minecraft_Learns",
     author=(
@@ -27,7 +27,7 @@ setup(
         "pandas",
         "numpy",
         "sklearn",
-        "matplotlib",
+        "matplotlib>=3.3,<3.4",
     ],
     zip_safe=False,
     long_description=long_description,

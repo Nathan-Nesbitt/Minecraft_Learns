@@ -27,7 +27,7 @@ setup(
         "pandas",
         "numpy",
         "sklearn",
-        "matplotlib>=3.1,<3.3",
+        "matplotlib",
     ],
     zip_safe=False,
     long_description=long_description,

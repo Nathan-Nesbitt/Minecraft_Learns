@@ -1,11 +1,11 @@
 """
-    Defines KNN Model used for Classification 
-    
+    Defines KNN Model used for Classification
+
     Written By: Kathryn Lecha
     Date: 2021-01-26
 """
 
-from generic.classification_model import ClassificationModel
+from .generic.classification_model import ClassificationModel
 from sklearn.neighbors import KNeighborsClassifier
 
 
@@ -13,28 +13,43 @@ class KNN(ClassificationModel):
     """
     Model class for KNN Classification
     """
-    def __init__(self, k, pca):
-        super.__init__(self, pca)
+
+    def __init__(self, n_neighbors=3, pca=False):
+        """
+        Initalize the model
+        ----
+        @param n_neighbors: the number of neighbors to conside
+        """
+        super().__init__(pca)
+        self.n_neighbors = n_neighbors
         self.internal_model = KNeighborsClassifier(
-            n_neighbors=k, weights="distance"
-            )
+            n_neighbors=n_neighbors, weights="distance"
+        )
+
+    def set_parameters(self, params):
+        """
+        Set the parameters of the model
+        ---
+        @param params: dictionary of parameters to set
+        """
+        if params is None:
+            return
+        super().set_parameters(params)
+
+        # set k if necessary and add number of neighbors to model
+        if "k" in params.keys():
+            self.n_neighbors = params["k"]
+            self.internal_model.set_params(**{"n_neighbors": params["k"]})
 
     def process_data(self, X, y):
         """
-        Process the data
+        Standardize the data and do PCA if needed
         ---
         @param X: a dataframe with n predictor observations
         @param y: a series with n response observations
         """
-        self.X = super()._standardize(X)
-        self.y = super()._standardize(y)
-
-    def train(self):
-        """
-        Train the Model
-        """
-        self.internal_model.fit(self.X, self.y)
-        self._evaluate(self.X, self.y)
+        super().set_X(super().process_data(X))
+        super().set_y(y)
 
     def predict(self, X):
         """
@@ -42,19 +57,6 @@ class KNN(ClassificationModel):
         ---
         @param X: a 2D data matrix of n observations and m predictors
         """
-        X = super()._standardize(X)
-        predicted_y = self.internal_model.predict(X)
-        self._evaluate(X, predicted_y)
+        X = super().process_data(X)
+        predicted_y = super().predict(X)
         return predicted_y
-    
-    def evaluate(self):
-        """
-        evaluate the preformance of the model using MSE
-        """
-        return self.score
-    
-    def _evaluate(self, X, y):
-        """
-        Score the model using the default values
-        """
-        self.score = self.internal_model.score(X, y)

@@ -77,10 +77,11 @@ def mean_zero_normalize(data):
     ---
     outputs a new dataframe with normalized values
     """
-    if (data.std() != 0).all():
-        return (data - data.mean()) / data.std()
+    range = (data.max() - data.min())
+    if (range != 0).all():
+        return (data - data.mean()) / (range/2)
     else:
-        return (data - data.mean()) / (data.std() + ALMOST_ZERO)
+        return (data - data.mean()) / ((range/2) + ALMOST_ZERO)
 
 
 def normalize(data):
@@ -155,7 +156,11 @@ def log_transform(data):
     ---
     outputs a new dataframe with log transformed values
     """
-    return log(normalize(data))
+    n_data = normalize(data)
+    if (n_data.min() != 0).any():
+        return log(n_data)
+    else:
+        return log(n_data+ALMOST_ZERO)
 
 
 def is_dataframe(data):

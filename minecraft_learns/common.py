@@ -133,6 +133,7 @@ def label_encoding(data):
     # encode the labels
     label_encoder = LabelEncoder().fit(data[encode_cols])
     temp = label_encoder.transform(data[encode_cols])
+
     data.loc[:, encode_cols] = DataFrame(temp, columns=encode_cols)
 
     # return the new data
@@ -147,6 +148,7 @@ def encode_labels(label_encoder, data):
     @param data: a dataframe
     """
     return label_encoder.transform(data)
+
 
 def log_transform(data):
     """
@@ -180,4 +182,4 @@ def get_ith_column(data, i=0):
     if is_dataframe(data):
         return data[data.columns[i]], data.columns[i]
     else:
-        return data[:, i], ""+i
+        return data[:, i], str(i)

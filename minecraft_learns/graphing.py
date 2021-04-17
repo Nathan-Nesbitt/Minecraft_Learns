@@ -52,10 +52,8 @@ def hist(population_list, title, xlabel, location=None):
     pyplot.legend()
 
     if location:
-        pyplot.show()
         pyplot.savefig(location)
-    else:
-        pyplot.show()
+    pyplot.show()
 
 
 def plot_decision_tree(model, columns=None, location=None):
@@ -71,9 +69,9 @@ def plot_decision_tree(model, columns=None, location=None):
 
     pyplot.title("Decision Tree Splits", fontsize=14, color=BLACK)
 
-    pyplot.show()
     if location:
         pyplot.savefig(location)
+    pyplot.show()
 
 
 def scatter(x, y, title, xlabel, ylabel, location=None):
@@ -100,9 +98,9 @@ def scatter(x, y, title, xlabel, ylabel, location=None):
     pyplot.xlim(0)
     pyplot.colorbar()
 
-    pyplot.show()
     if location:
         pyplot.savefig(location)
+    pyplot.show()
 
 
 def scatter_groups(x, y, groups, title, xlabel, ylabel, location=None):
@@ -130,9 +128,9 @@ def scatter_groups(x, y, groups, title, xlabel, ylabel, location=None):
 
     pyplot.legend(*scatter.legend_elements(), title="Classes")
     
-    pyplot.show()
     if location:
         pyplot.savefig(location)
+    pyplot.show()
 
 
 def plot_accuracies(accuracies, hyperparams, location=None):
@@ -148,6 +146,6 @@ def plot_accuracies(accuracies, hyperparams, location=None):
     pyplot.ylabel('Accuracy', fontsize=12, color=BLACK)
     pyplot.xlabel('Hyperparameter Value', fontsize=12, color=BLACK)
 
-    pyplot.show()
     if location:
         pyplot.savefig(location)
+    pyplot.show()

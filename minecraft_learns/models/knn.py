@@ -18,7 +18,7 @@ class KNN(ClassificationModel):
         """
         Initalize the model
         ----
-        @param n_neighbors: the number of neighbors to conside
+        @param n_neighbors: the number of neighbors to consider
         """
         super().__init__(pca)
         self.n_neighbors = n_neighbors

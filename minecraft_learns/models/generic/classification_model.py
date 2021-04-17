@@ -53,7 +53,7 @@ class ClassificationModel(Model):
 
     def precision(self, test_X, test_y):
         """
-        Return the accuracy of the model
+        Return the precision score of the model
         ---
         @param test_X: dataframe of n test predictor observations
         @param test_y: dataframe of n test response observations

@@ -18,10 +18,7 @@ setup(
     version="0.0.16",
     description="Machine Learning library for Minecraft Education AI interactions",
     url="https://github.com/Nathan-Nesbitt/Minecraft_Learns",
-    author=(
-        "Carlos Rueda Carrasco, Kathryn Lecha, Nathan Nesbitt, "
-        + "Adrian Morillo Quiroga"
-    ),
+    author=("Kathryn Lecha, Nathan Nesbitt"),
     packages=find_packages(),
     install_requires=[
         "pandas",

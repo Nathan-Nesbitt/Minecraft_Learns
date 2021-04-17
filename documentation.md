@@ -1,19 +1,27 @@
 # Machine Learning Tools
 
 ## Data
-
 Data is used to read in data from a file. The currently supported file types
 are `.csv`, `.jsonl`, and `.json`.
+
+### Importing
+```python
+from minecraft_learns import Data
+```
+
+### Initialization
 
 It is initalized with a filepath
 - `data = Data(filepath)`
 
+### Loading Data
 The methods to save the data to a dataframe attribute are:
 - `load_data()`: load the data at the determined filepath. Data must be saved as ".csv", ".json" or ".jsonl"
 - `load_csv(filepath)`: load a csv file at the input filepath
 - `load_json(filepath)`: load a json file at the input filepath
 - `load_json_lines(filepath)`: load a json lines file at the input filepath
 
+### Data Manipualtion
 It supports file deletion:
 - `delete_file()`: delete the data file
 
@@ -23,6 +31,11 @@ After data has been loaded, the following methods are supported:
 - `print_types()`: prints the datatypes of each column
 
 ## Common
+
+The common methods are imported using
+```python
+from minecraft_learns import *
+```
 
 ### euclidean_distance
 Computes the euclidean distance for every observation of data to an input observation
@@ -194,6 +207,11 @@ column_vals, column_name = get_ith_column(data)
 
 ## Graphing
 
+The graphing functions are imported using
+```python
+from minecraft_learns import *
+```
+
 ### Color Maps
 The following colors are available for use:
 - `minecraft_linear`: a linear gradient of colours from grass green to sky blue
@@ -249,7 +267,7 @@ Outputs:
 scatter(x, y, "title", "xlabel", "ylabel", "plot.png")
 ```
 
-#### scatter_groups
+### scatter_groups
 creates a scatter plot for the groups found
 
 Inputs:
@@ -269,14 +287,14 @@ scatter(x, y, labels, "title", "xlabel", "ylabel", "plot.png")
 
 ## Machine Learning Models
 
-Minecraft Learns has several classification and regression models/
+Minecraft Learns has several classification and regression models. They are listed here.
 
 Classification Models:
 - Decision Tree Classification: `DecisionTreeClassifier`
 - KMeans Classification: `KMeans`
 - K-Nearest Neighbors Classification: `KNN`
 - Linear Discriment Analysis: `LDA`
-- Random Forest Regression: `RandomForestClassifier`
+- Random Forest Classification: `RandomForestClassifier`
 - Support Vector Machine Classification: `SVMClassification`
 
 Regression Models:
@@ -286,9 +304,14 @@ Regression Models:
 - Random Forest Regression: `RandomForestRegressor`
 - Support Vector Machine Regression: `SVMRegression`
 
-### ML Models:
+All of these models are imported using:
+```python
+from minecraft_learns.models import *
+```
 
-Here is an example of how to use a machine learning model:
+### All ML Models:
+
+For simplicity of learning, all ML models have the same general flow. Here is an example of how to use a machine learning model:
 ```python
 tree = DecisionTreeRegression()
 tree.process_data(X_train, y_train)
@@ -488,7 +511,7 @@ importance = tree.feature_importance()
 ```
 
 #### plot
-Plots either the decision tree itself (see `plot_tree`) or a scatter plot from the super plot method.
+Plots either the decision tree itself (see `plot_tree`) or a scatter plot inherited by classification and regression models.
 
 Inputs:
 - `tree`: *optional* notes if plot_tree should be used. Set to `True` by default
@@ -635,4 +658,3 @@ parameter to the highest preforming value of c.
 ```python
 svm.set_best_c()
 ```
-

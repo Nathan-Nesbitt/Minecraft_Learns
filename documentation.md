@@ -249,7 +249,7 @@ Outputs:
 scatter(x, y, "title", "xlabel", "ylabel", "plot.png")
 ```
 
-#### scatter_groups
+### scatter_groups
 creates a scatter plot for the groups found
 
 Inputs:
@@ -269,14 +269,14 @@ scatter(x, y, labels, "title", "xlabel", "ylabel", "plot.png")
 
 ## Machine Learning Models
 
-Minecraft Learns has several classification and regression models/
+Minecraft Learns has several classification and regression models. They are listed here.
 
 Classification Models:
 - Decision Tree Classification: `DecisionTreeClassifier`
 - KMeans Classification: `KMeans`
 - K-Nearest Neighbors Classification: `KNN`
 - Linear Discriment Analysis: `LDA`
-- Random Forest Regression: `RandomForestClassifier`
+- Random Forest Classification: `RandomForestClassifier`
 - Support Vector Machine Classification: `SVMClassification`
 
 Regression Models:
@@ -286,9 +286,9 @@ Regression Models:
 - Random Forest Regression: `RandomForestRegressor`
 - Support Vector Machine Regression: `SVMRegression`
 
-### ML Models:
+### All ML Models:
 
-Here is an example of how to use a machine learning model:
+For simplicity of learning, all ML models have the same general flow. Here is an example of how to use a machine learning model:
 ```python
 tree = DecisionTreeRegression()
 tree.process_data(X_train, y_train)
@@ -488,7 +488,7 @@ importance = tree.feature_importance()
 ```
 
 #### plot
-Plots either the decision tree itself (see `plot_tree`) or a scatter plot from the super plot method.
+Plots either the decision tree itself (see `plot_tree`) or a scatter plot inherited by classification and regression models.
 
 Inputs:
 - `tree`: *optional* notes if plot_tree should be used. Set to `True` by default
@@ -635,4 +635,3 @@ parameter to the highest preforming value of c.
 ```python
 svm.set_best_c()
 ```
-

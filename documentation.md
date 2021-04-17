@@ -629,7 +629,8 @@ svm.set_c(c)
 ```
 
 #### set_best_c
-Test the following values of C `[0.1, 1, 5, 10, 20, 50, 100]` and set the learning parameter to the highest preforming one
+Test the following values of C `[0.1, 1, 5, 10, 20, 50, 100]` and set the learning
+parameter to the highest preforming value of c.
 
 ```python
 svm.set_best_c()

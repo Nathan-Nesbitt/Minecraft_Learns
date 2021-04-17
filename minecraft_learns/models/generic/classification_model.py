@@ -61,7 +61,7 @@ class ClassificationModel(Model):
         predicted_y = self.internal_model.predict(test_X)
         return average_precision_score(test_y, predicted_y)
 
-    def plot_precision_recall(self, test_X, test_y, location=None):
+    def plot_precision_recall(self, test_X, test_y):
         """
         plot the precesion recall curve
         ---
@@ -72,9 +72,6 @@ class ClassificationModel(Model):
         plot = plot_precision_recall_curve(self.internal_model, test_X, test_y)
         title = "2-class Precision-Recall curve: AP={0:0.2f}"
         plot.ax_.set_title(title.format(average_precision))
-
-        if location:
-            plot.savefig(location)
 
     def plot(self, location=None):
         """

@@ -1,19 +1,27 @@
 # Machine Learning Tools
 
 ## Data
-
 Data is used to read in data from a file. The currently supported file types
 are `.csv`, `.jsonl`, and `.json`.
+
+### Importing
+```python
+from minecraft_learns import Data
+```
+
+### Initialization
 
 It is initalized with a filepath
 - `data = Data(filepath)`
 
+### Loading Data
 The methods to save the data to a dataframe attribute are:
 - `load_data()`: load the data at the determined filepath. Data must be saved as ".csv", ".json" or ".jsonl"
 - `load_csv(filepath)`: load a csv file at the input filepath
 - `load_json(filepath)`: load a json file at the input filepath
 - `load_json_lines(filepath)`: load a json lines file at the input filepath
 
+### Data Manipualtion
 It supports file deletion:
 - `delete_file()`: delete the data file
 
@@ -23,6 +31,11 @@ After data has been loaded, the following methods are supported:
 - `print_types()`: prints the datatypes of each column
 
 ## Common
+
+The common methods are imported using
+```python
+from minecraft_learns import *
+```
 
 ### euclidean_distance
 Computes the euclidean distance for every observation of data to an input observation
@@ -194,6 +207,11 @@ column_vals, column_name = get_ith_column(data)
 
 ## Graphing
 
+The graphing functions are imported using
+```python
+from minecraft_learns import *
+```
+
 ### Color Maps
 The following colors are available for use:
 - `minecraft_linear`: a linear gradient of colours from grass green to sky blue
@@ -285,6 +303,11 @@ Regression Models:
 - Partial Least Squares Regression: `PLSRegressor`
 - Random Forest Regression: `RandomForestRegressor`
 - Support Vector Machine Regression: `SVMRegression`
+
+All of these models are imported using:
+```python
+from minecraft_learns.models import *
+```
 
 ### All ML Models:
 

@@ -7,10 +7,8 @@ Date: 2021-01-26
 
 
 from .model import Model
-from ...common import get_ith_column
+from ...common import get_ith_column, is_dataframe
 from ...graphing import scatter
-
-from numpy import square, subtract
 
 
 class RegressionModel(Model):
@@ -24,13 +22,16 @@ class RegressionModel(Model):
 
     def r_square(self):
         """Return r square score"""
-        return self.internal_model.score()
+        return self.internal_model.score(self.X, self.y)
 
     def mse(self):
         """
         evaluate the preformance of the model using MSE
         """
-        return square(subtract(self.y.values, self.predict(self.X))).mean()
+        if is_dataframe(self.y):
+            return ((self.y.values - self.predict()) ** 2).mean()
+        else:
+            return ((self.y - self.predict()) ** 2).mean()
 
     def plot(self, location=None):
         x, x_label = get_ith_column(self.X, 0)

@@ -1,9 +1,19 @@
 import pytest
 
-from minecraft_learns.data import Data
+from pandas import DataFrame
 
-def test_get_data():
+from minecraft_learns.data import Data
+from minecraft_learns.errors import NoDataStored
+
+def test_load_data():
     """
-        Tests to see if the get_data method works.
+    Checks failure of non acceptable type is input
     """
-    return True
+    try:
+        Data("test.txt").load_data()
+    except FileNotFoundError:
+        assert True
+    except NoDataStored:
+        assert True
+    else:
+        assert False

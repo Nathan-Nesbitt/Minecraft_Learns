@@ -37,9 +37,13 @@ def interact(data, interaction_cols):
     # for each pair of interaction columns, create a new product column
     for column_1 in interaction_cols:
         for column_2 in interaction_cols:
-            if column_1 != column_2:
-                column_name = "" + column_1 + "*" + column_2
-                data.loc[:, column_name] = data[column_1] * data[column_2]
+            if column_1 == column_2:
+                continue
+            if "" + column_2 + "*" + column_1 in data.columns:
+                continue
+
+            column_name = "" + column_1 + "*" + column_2
+            data.loc[:, column_name] = data[column_1] * data[column_2]
     return data
 
 
